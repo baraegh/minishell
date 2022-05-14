@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/26 00:17:00 by barae             #+#    #+#             */
-/*   Updated: 2022/05/14 16:36:28 by eel-ghan         ###   ########.fr       */
+/*   Created: 2022/05/13 18:48:38 by eel-ghan          #+#    #+#             */
+/*   Updated: 2022/05/13 20:24:08 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Includes/header.h"
+#ifndef TOKEN_H
+# define TOKEN_H
 
-int	main(void)
+typedef struct s_token
 {
-	char	*command = NULL;
-	t_lexer	*lexer = NULL;
-	t_token *token = NULL;
-
-	while (1)
+	enum token
 	{
-		command = readline("minishell$ ");
-		// if (!command)
-		// 	continue ;
-		lexer = init_lexer(command);
-		while ((token = lexer_get_next_token(lexer)) != NULL)
-			printf("TOKEN(%d, %s)\n", token->type, token->value);
-		free(lexer);
-		free(token);
-		free(command);
-	}
-	return (0);
-}
+		TOKEN_CMD,
+		TOKEN_WORD,
+		TOKEN_REDIRECTION
+	}	type;
+	char	*value;
+}	t_token;
+
+t_token	*init_token(int type, char *value);
+
+#endif
