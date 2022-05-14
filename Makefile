@@ -3,16 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: barae <barae@student.42.fr>                +#+  +:+       +#+         #
+#    By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by barae             #+#    #+#              #
-#    Updated: 2022/04/26 00:33:25 by barae            ###   ########.fr        #
+#    Updated: 2022/05/14 13:39:04 by eel-ghan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 SRCS = minishell.c
+
+OBJS = ${SRCS:.c=.o}
 
 CC = @gcc
 
@@ -22,15 +24,15 @@ RM = @rm -f
 
 libft = srcs/Libft/libft.a
 
-${NAME} :
+${NAME} : ${OBJS}
 	@make -C srcs/Libft
-	${CC} ${CFLAGS} ${SRCS} ${libft} -o ${NAME}
+	${CC} ${libft} -o ${NAME} ${OBJS}
 	@tput setaf 2; echo "MINISHELL IS READY"
 
 all : ${NAME}
 
 clean :
-	${RM} ${NAME}
+	${RM} ${OBJS}
 	@make clean -C srcs/Libft
 	@tput setaf 1; echo "OBJECTS REMOVED"
 
