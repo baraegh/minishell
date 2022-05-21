@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 13:47:06 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/05/19 18:34:20 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/05/20 21:15:00 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_lexer	*init_lexer(char *contents)
 	if (!lexer_check_quote(lexer))
 		return (NULL);
 	lexer->cmd_flag = 1;
-	// lexer->pipe_flag = 0;
 	return (lexer);
 }
 

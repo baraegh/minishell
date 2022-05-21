@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:32:53 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/05/19 18:33:47 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/05/21 15:55:14 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,17 @@ char	*lexer_get_char_as_str(t_lexer *lexer)
 
 t_token	*lexer_collect_pipe(t_lexer *lexer)
 {
+	if (lexer_advance(lexer))
+	{
+		if (lexer->c == '|')
+			return (init_token(TOKEN_ERROR, ERROR));
+		lexer_skip_whitespace(lexer);
+		if (!lexer->c)
+			return (init_token(TOKEN_ERROR, ERROR));
+	}
+	if (lexer->cmd_flag)
+		return (init_token(TOKEN_ERROR, ERROR));
 	lexer->cmd_flag = 1;
-	lexer_advance(lexer);
 	return (init_token(TOKEN_PIPE, "|"));
 }
 
@@ -55,9 +64,19 @@ t_token	*lexer_get_next_token(t_lexer *lexer)
 		if (lexer->c == '<')
 			return (lexer_collect_in_red(lexer));
 		if (lexer->c == '"')
-			return (init_token(TOKEN_WORD, lexer_get_value_skip_quote(lexer, '"')));
+		{
+			if (!lexer->cmd_flag)
+				return (init_token(TOKEN_WORD, lexer_get_value_skip_quote(lexer, '"')));
+			lexer->cmd_flag = 0;
+			return (init_token(TOKEN_CMD, lexer_get_value_skip_quote(lexer, '"')));
+		}
 		if (lexer->c == '\'')
-			return (init_token(TOKEN_WORD, lexer_get_value_skip_quote(lexer, '\'')));
+		{
+			if (!lexer->cmd_flag)
+				return (init_token(TOKEN_WORD, lexer_get_value_skip_quote(lexer, '\'')));
+			lexer->cmd_flag = 0;
+			return (init_token(TOKEN_CMD, lexer_get_value_skip_quote(lexer, '\'')));
+		}
 		if (ft_isprint(lexer->c))
 			return (lexer_collect_str(lexer));
 	}
