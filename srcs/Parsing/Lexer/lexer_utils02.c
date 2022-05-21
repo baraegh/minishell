@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:33:59 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/05/19 18:34:29 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/05/21 16:30:06 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_token	*lexer_collect_out_red(t_lexer *lexer)
 {
 	t_token	*token;
 	char	*value = NULL;
+	char	c;
 
 	if (!lexer_advance(lexer))
 		return (init_token(TOKEN_ERROR, ERROR));
@@ -32,7 +33,8 @@ t_token	*lexer_collect_out_red(t_lexer *lexer)
 			else
 			{
 				lexer_skip_whitespace(lexer);
-				lexer_back(lexer);
+				if (!lexer->c || lexer->c == '|')
+					return (init_token(TOKEN_ERROR, ERROR));
 				token = lexer_get_next_token(lexer);
 				return (init_token(TOKEN_APPEND, token->value));
 			}
@@ -45,26 +47,12 @@ t_token	*lexer_collect_out_red(t_lexer *lexer)
 	}
 	else if (lexer->c == '<')
 		return (init_token(TOKEN_ERROR, ERROR));
-	else if (lexer->c == '"')
+	else if (lexer->c == '"' || lexer->c == '\'')
 	{
-		value = lexer_get_value_in_quote(lexer, '"');
-		if (lexer->c == '"')
+		c = lexer->c;
+		value = lexer_get_value_in_quote(lexer, c);
+		if (lexer->c == c)
 			lexer_skip_quote(lexer);
-		if (!lexer->c
-			&& (!ft_strncmp(value, ">", ft_strlen(value))
-				|| !ft_strncmp(value, "<", ft_strlen(value))))
-			return (init_token(TOKEN_ERROR, ERROR));
-		return (init_token(TOKEN_OUTPUT, ft_strjoin(value, lexer_get_value(lexer))));
-	}
-	else if (lexer->c == '\'')
-	{
-		value = lexer_get_value_in_quote(lexer, '\'');
-		if (lexer->c == '\'')
-			lexer_skip_quote(lexer);
-		if (!lexer->c
-			&& (!ft_strncmp(value, ">", ft_strlen(value))
-				|| !ft_strncmp(value, "<", ft_strlen(value))))
-			return (init_token(TOKEN_ERROR, ERROR));
 		return (init_token(TOKEN_OUTPUT, ft_strjoin(value, lexer_get_value(lexer))));
 	}
 	lexer_skip_whitespace(lexer);
@@ -76,12 +64,12 @@ t_token	*lexer_collect_out_red(t_lexer *lexer)
 t_token	*lexer_collect_in_red(t_lexer *lexer)
 {
 	t_token	*token;
-
 	char	*value = NULL;
+	char	c;
 
 	if (!lexer_advance(lexer))
 		return (init_token(TOKEN_ERROR, ERROR));
-	if (lexer->c == '>')
+	if (lexer->c == '<')
 	{
 		if (lexer_advance(lexer))
 		{
@@ -94,7 +82,8 @@ t_token	*lexer_collect_in_red(t_lexer *lexer)
 			else
 			{
 				lexer_skip_whitespace(lexer);
-				lexer_back(lexer);
+				if (!lexer->c || lexer->c == '|')
+					return (init_token(TOKEN_ERROR, ERROR));
 				token = lexer_get_next_token(lexer);
 				return (init_token(TOKEN_HERE_DOC, token->value));
 			}
@@ -105,28 +94,14 @@ t_token	*lexer_collect_in_red(t_lexer *lexer)
 			return (init_token(TOKEN_INPUT, lexer_get_value(lexer)));
 		}
 	}
-	else if (lexer->c == '<')
+	else if (lexer->c == '>')
 		return (init_token(TOKEN_ERROR, ERROR));
-	else if (lexer->c == '"')
+	else if (lexer->c == '"' || lexer->c == '\'')
 	{
-		value = lexer_get_value_in_quote(lexer, '"');
-		if (lexer->c == '"')
+		c = lexer->c;
+		value = lexer_get_value_in_quote(lexer, c);
+		if (lexer->c == c)
 			lexer_skip_quote(lexer);
-		if (!lexer->c
-			&& (!ft_strncmp(value, ">", ft_strlen(value))
-				|| !ft_strncmp(value, "<", ft_strlen(value))))
-			return (init_token(TOKEN_ERROR, ERROR));
-		return (init_token(TOKEN_INPUT, ft_strjoin(value, lexer_get_value(lexer))));
-	}
-	else if (lexer->c == '\'')
-	{
-		value = lexer_get_value_in_quote(lexer, '\'');
-		if (lexer->c == '\'')
-			lexer_skip_quote(lexer);
-		if (!lexer->c
-			&& (!ft_strncmp(value, ">", ft_strlen(value))
-				|| !ft_strncmp(value, "<", ft_strlen(value))))
-			return (init_token(TOKEN_ERROR, ERROR));
 		return (init_token(TOKEN_INPUT, ft_strjoin(value, lexer_get_value(lexer))));
 	}
 	lexer_skip_whitespace(lexer);
