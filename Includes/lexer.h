@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:15:35 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/05/20 13:29:20 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/05/23 17:39:41 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,10 @@ char	*lexer_get_value(t_lexer *lexer);
 void	lexer_skip_quote(t_lexer *lexer);
 char	*lexer_get_value_skip_quote(t_lexer *lexer, char c);
 char	*lexer_get_value_in_quote(t_lexer *lexer, char c);
+t_token	*lexer_handle_dollar(t_lexer *lexer);
+t_token	*handle_append_out_red(t_lexer *lexer);
+t_token	*handle_heredoc_in_red(t_lexer *lexer);
+t_token	*handle_red_with_quote(t_lexer *lexer, char c);
+char	*handle_dollar(t_lexer *lexer);
 
 #endif

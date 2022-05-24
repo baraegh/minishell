@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 00:17:00 by barae             #+#    #+#             */
-/*   Updated: 2022/05/19 18:04:08 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/05/24 17:12:15 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int ac, char **av, char **env)
 	(void) env;
 	while (1)
 	{
-		command = readline("minishell$ ");
+		command = readline("minishell 👻 $ ");
 		add_history(command);
 		// if (!command)
 		// 	continue ;
