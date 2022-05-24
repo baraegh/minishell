@@ -21,6 +21,8 @@ SRCS =	minishell.c ${LEX_DIR}lexer.c ${LEX_DIR}token.c ${LEX_DIR}lexer_utils00.c
 
 OBJS = ${SRCS:.c=.o}
 
+OBJS = ${SRCS:.c=.o}
+
 CC = @gcc
 
 CFLAGS = -Wall -Wextra -Werror
@@ -34,6 +36,7 @@ INCLUDE = -lreadline
 ${NAME} : ${OBJS}
 	@make -C srcs/Libft
 	${CC} ${libft} -o ${NAME} ${OBJS} ${INCLUDE}
+
 	@tput setaf 2; echo "MINISHELL IS READY"
 
 all : ${NAME}
