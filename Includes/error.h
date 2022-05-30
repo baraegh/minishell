@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils02.c                                    :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/21 18:12:47 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/05/30 18:33:26 by eel-ghan         ###   ########.fr       */
+/*   Created: 2022/05/28 15:08:21 by eel-ghan          #+#    #+#             */
+/*   Updated: 2022/05/28 15:12:33 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../Includes/header.h"
+#ifndef ERROR_H
+# define ERROR_H
 
-t_token	*lexer_handle_dollar(t_lexer *lexer)
-{
-	char	c;
+# define SYNTAX_ERROR "syntax error"
+# define PIPE_ERROR "pipe syntax error"
+# define REDIRECTION_ERROR "redirection syntax error"
 
-	if (lexer_advance(lexer))
-	{
-		c = lexer->c;
-		if (lexer->c =='"' || lexer->c == '\'')
-			return (init_token(TOKEN_WORD, lexer_get_value_in_quote(lexer, c)));
-		// if ()
-	}
-	return (NULL);
-}
+#endif

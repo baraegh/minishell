@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 03:51:23 by barae             #+#    #+#             */
-/*   Updated: 2022/05/14 15:32:06 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/05/29 15:00:57 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,8 @@
 # include "../srcs/Libft/libft.h"
 # include "token.h"
 # include "lexer.h"
+# include "error.h"
+# include "struct_cmd.h"
+# include "parser.h"
 
 #endif

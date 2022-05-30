@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:31:17 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/05/20 23:52:10 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/05/28 15:02:29 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	lexer_find_pair(char *s, char c, int *i)
 	return (0);
 }
 
-int		lexer_check_quote(t_lexer *lexer)
+int	lexer_check_quote(t_lexer *lexer)
 {
 	int	i;
 
@@ -52,22 +52,39 @@ char	*lexer_get_value(t_lexer *lexer)
 	char	*s;
 	char	c;
 
-	value = malloc(sizeof(char));
+	value = ft_calloc(1, sizeof(char));
 	// if (!value)
 	// 	return
-	value[0] = '\0';
 	while (lexer->c != ' ' && lexer->c)
 	{
-		if (lexer->c == '"' || lexer->c == '\'' )
+		if (lexer->c == '$')
+		{
+			s = handle_dollar(lexer);
+			if (!s)
+			{
+				s = ft_calloc(1, sizeof(char));
+				// if (!s)
+				// 	return
+				continue ;
+			}
+			value = ft_strjoin(value, s);
+			if (lexer->c == '$')
+				continue ;
+			if (lexer->c == '>' || lexer->c == '<'
+				|| lexer->c == '|')
+				return (value);
+			if (lexer->c == '"' || lexer->c == '\''
+				|| lexer->c == ' ')
+				continue ;
+		}
+		else if (lexer->c == '"' || lexer->c == '\'')
 		{
 			c = lexer->c;
-			// lexer_advance(lexer);
-				return(ft_strjoin(value, lexer_get_value_skip_quote(lexer, c)));
-	
+			return(ft_strjoin(value, lexer_get_value_skip_quote(lexer, c)));
 		}
 		else if (lexer->c == '>' || lexer->c == '<'
-				|| lexer->c == '|')
-				break ;
+			|| lexer->c == '|')
+			break ;
 		s = lexer_get_char_as_str(lexer);
 		value = ft_strjoin(value, s);
 		lexer_advance(lexer);
@@ -81,13 +98,32 @@ char	*lexer_get_value_skip_quote(t_lexer *lexer, char c)
 	char	*value;
 	char	*s;
 
-	value = malloc(sizeof(char));
+	value = ft_calloc(1, sizeof(char));
 	// if (!value)
 	// 	return
-	value[0] = '\0';
 	lexer_advance(lexer);
 	while (lexer->c)
 	{
+		if (lexer->c == '$')
+		{
+			s = handle_dollar(lexer);
+			if (!s)
+			{
+				s = ft_calloc(1, sizeof(char));
+				// if (!s)
+				// 	return
+				continue ;
+			}
+			value = ft_strjoin(value, s);
+			if (lexer->c == '$')
+				continue ;
+			if (lexer->c == '>' || lexer->c == '<'
+				|| lexer->c == '|')
+				return (value);
+			if (lexer->c == '"' || lexer->c == '\''
+				|| lexer->c == ' ')
+				continue ;
+		}
 		if (lexer->c == c)
 		{
 			lexer_advance(lexer);
@@ -110,17 +146,21 @@ char	*lexer_get_value_in_quote(t_lexer *lexer, char c)
 	char	*value;
 	char	*s;
 
-	lexer_skip_quote(lexer);
+	lexer_advance(lexer);
+	if (lexer->c == c)
+		return ("");
 	value = malloc(sizeof(char));
 	// if (!value)
 	// 	return
 	value[0] = '\0';
-	while (lexer->c != c && lexer->c)
+	while (lexer->c != c)
 	{
 		s = lexer_get_char_as_str(lexer);
 		value = ft_strjoin(value, s);
 		lexer_advance(lexer);
 	}
+	if (lexer->c == '"')
+		lexer_advance(lexer);
 	// free(s);
 	return (value);
 }
