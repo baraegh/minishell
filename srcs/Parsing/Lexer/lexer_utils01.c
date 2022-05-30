@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:31:17 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/05/24 16:38:04 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/05/28 15:02:29 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,12 +146,14 @@ char	*lexer_get_value_in_quote(t_lexer *lexer, char c)
 	char	*value;
 	char	*s;
 
-	lexer_skip_quote(lexer);
+	lexer_advance(lexer);
+	if (lexer->c == c)
+		return ("");
 	value = malloc(sizeof(char));
 	// if (!value)
 	// 	return
 	value[0] = '\0';
-	while (lexer->c != c && lexer->c)
+	while (lexer->c != c)
 	{
 		s = lexer_get_char_as_str(lexer);
 		value = ft_strjoin(value, s);

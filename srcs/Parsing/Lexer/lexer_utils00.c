@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:32:53 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/05/24 16:37:39 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/05/30 14:16:07 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ t_token	*lexer_collect_pipe(t_lexer *lexer)
 	if (lexer_advance(lexer))
 	{
 		if (lexer->c == '|')
-			return (init_token(TOKEN_ERROR, ERROR));
+			return (init_token(TOKEN_ERROR, PIPE_ERROR));
 		lexer_skip_whitespace(lexer);
 		if (!lexer->c)
-			return (init_token(TOKEN_ERROR, ERROR));
+			return (init_token(TOKEN_ERROR, PIPE_ERROR));
 	}
 	if (lexer->cmd_flag)
-		return (init_token(TOKEN_ERROR, ERROR));
+		return (init_token(TOKEN_ERROR, PIPE_ERROR));
 	lexer->cmd_flag = 1;
 	return (init_token(TOKEN_PIPE, "|"));
 }
@@ -75,7 +75,7 @@ t_token	*lexer_get_next_token(t_lexer *lexer)
 			lexer->cmd_flag = 0;
 			return (init_token(TOKEN_CMD, lexer_get_value_skip_quote(lexer, c)));
 		}
-		if (ft_isprint(lexer->c))
+		if (lexer->c)
 			return (lexer_collect_str(lexer));
 	}
 	return (NULL);
