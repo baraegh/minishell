@@ -6,7 +6,7 @@
 #    By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by barae             #+#    #+#              #
-#    Updated: 2022/05/23 13:45:05 by eel-ghan         ###   ########.fr        #
+#    Updated: 2022/05/30 18:31:13 by eel-ghan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,12 @@ NAME = minishell
 
 LEX_DIR = srcs/Parsing/Lexer/
 
+PARS_DIR = srcs/Parsing/Parser/
+
 SRCS =	minishell.c ${LEX_DIR}lexer.c ${LEX_DIR}token.c ${LEX_DIR}lexer_utils00.c\
 		${LEX_DIR}lexer_utils01.c ${LEX_DIR}lexer_utils03.c ${LEX_DIR}redirection_utils.c\
-		${LEX_DIR}handle_dollar.c\
+		${LEX_DIR}dollar_utils.c ${PARS_DIR}parser.c ${PARS_DIR}struct_cmd.c\
+		${PARS_DIR}linked_list_utils.c ${PARS_DIR}parser_utils00.c\
 		
 
 OBJS = ${SRCS:.c=.o}
@@ -25,7 +28,7 @@ OBJS = ${SRCS:.c=.o}
 
 CC = @gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 
 RM = @rm -f
 
@@ -36,7 +39,7 @@ INCLUDE = -lreadline
 ${NAME} : ${OBJS}
 	@make -C srcs/Libft
 	${CC} ${libft} -o ${NAME} ${OBJS} ${INCLUDE}
-
+#	${CC} ${CFLAGS} ${SRCS} ${libft} -o ${NAME} ${INCLUDE}
 	@tput setaf 2; echo "MINISHELL IS READY"
 
 all : ${NAME}
