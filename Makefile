@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+         #
+#    By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by barae             #+#    #+#              #
-#    Updated: 2022/05/30 18:53:34 by eel-ghan         ###   ########.fr        #
+#    Updated: 2022/06/01 13:56:00 by ael-bach         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,11 @@ SRCS =	minishell.c ${LEX_DIR}lexer.c ${LEX_DIR}token.c ${LEX_DIR}lexer_utils00.c
 		${LEX_DIR}lexer_utils01.c ${LEX_DIR}lexer_utils02.c ${LEX_DIR}redirection_utils.c\
 		${LEX_DIR}dollar_utils.c ${PARS_DIR}parser.c ${PARS_DIR}struct_cmd.c\
 		${PARS_DIR}linked_list_utils.c ${PARS_DIR}parser_utils00.c\
+		./srcs/exec/srcs/exec.c\
+		./srcs/exec/srcs/builtins.c\
+		./srcs/exec/srcs/export.c\
+		./srcs/exec/srcs/unset.c\
+		./srcs/exec/srcs/heredoc.c\
 		
 
 OBJS = ${SRCS:.c=.o}
@@ -28,7 +33,7 @@ OBJS = ${SRCS:.c=.o}
 
 CC = @gcc
 
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address 
 
 RM = @rm -f
 

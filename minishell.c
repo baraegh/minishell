@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 00:17:00 by barae             #+#    #+#             */
-/*   Updated: 2022/05/30 18:27:21 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/03 20:45:16 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/header.h"
+
 
 void	print_t_cmd(t_cmd *list)
 {
@@ -44,19 +45,28 @@ void	print_t_cmd(t_cmd *list)
 	printf("##########\n");
 }
 
+
 int	main(int ac, char **av, char **env)
 {
 	char		*command = NULL;
 	t_lexer		*lexer = NULL;
 	t_parser	*parser = NULL;
 	t_cmd		*list = NULL;
+	t_vr		*vr;
+	int fd = 0;
 
 	(void) ac;
 	(void) av;
-	(void) env;
+	vr = fill_env(env);
+	vr->export = fill_export(env, vr);
 	while (1)
 	{
-		command = readline("minishell 👻 $ ");
+		command = readline("minishell 👾 $ ");
+		if (command == NULL)
+		{
+			printf("exit");
+			exit(0);
+		}
 		add_history(command);
 		// if (!command)
 		// 	continue ;
@@ -67,7 +77,9 @@ int	main(int ac, char **av, char **env)
 		// // if (!parser)
 		// 	// return
 		list = parser_parse(parser);
-		print_t_cmd(list);
+		// fd = heredoc(list);
+		exec_pipe(list, vr,fd);
+		// print_t_cmd(list);
 		// free(lexer);
 		// free(token);
 		// free(parser->current_token);

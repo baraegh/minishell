@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 15:10:08 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/05/30 20:53:36 by ael-bach         ###   ########.fr       */
+/*   Created: 2022/06/01 14:10:56 by ael-bach          #+#    #+#             */
+/*   Updated: 2022/06/01 15:01:42 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// #include "../../../Includes/header.h"
 
-int	ft_lstsize(t_list *lst)
-{
-	int		len;
-	t_list	*tmp;
+// int	cntl_c(int i)
+// {
+// 	rl_re
+// }
 
-	tmp = lst;
-	len = 0;
-	while (tmp != NULL)
-	{
-		len++;
-		tmp = tmp->next;
-	}
-	return (len);
-}
+// void 	sig(void)
+// {
+// 	signal(SIGINT, cntl_c);
+// 	signal(SIGQUIT, SIG_IGN);
+// }
