@@ -6,13 +6,11 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:20:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/03 21:09:42 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/05 15:38:54 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/header.h"
-
-int	exitcode;
 
 char	*ft_getpath(char **envp)
 {
@@ -86,72 +84,62 @@ int	*openfile(t_cmd *list)
 			if (fd < 0)
 			{
 				printf("no permessions");
-				return (NULL);
+				exitcode = 1;
 			}
 		}
-		else if (tmp->file->type == 4)
+		if (tmp->file->type == 4)
 		{
 			fd[1] = open(tmp->file->file_name, O_RDWR | O_CREAT | O_APPEND ,0644);
 			if (fd < 0)
 			{
 				printf("no permessions");
-				return (NULL);
+				exitcode = 1;
 			}
 		}
-		else if (tmp->file->type == 3)
+		if (tmp->file->type == 3)
 		{
 			fd[0] = open(tmp->file->file_name, O_RDONLY ,0644);
 			if (fd < 0)
 			{
 				printf("no permessions");
-				return (NULL);
+				exitcode = 1;
 			}
+		}
+		if (tmp->file->type == 5)
+		{
+			fd[0] = heredoc(tmp->file->file_name);
 		}
 		tmp->file = tmp->file->next;
 	}
 	return (fd);
 }
 
-/*
-if(not the first cmd)
-	dup2(fd+(cmdnbr-1*2),0);
-if(no last cmd)
-	dup2(fd+(cmdnbr*2+1),1);
-*/
-
-/*
-        if( not first command ){
-            if( dup2(pipefds[(commandc-1)*2], 0) < ){
-                perror and exit
-            }
-        }
-         child outputs to next command, if it's not
-            the last command 
-        if( not last command ){
-            if( dup2(pipefds[commandc*2+1], 1) < 0 ){
-                perror and exit
-            }
-*/
-
-void	ft_child(t_cmd *list, t_vr *vr, int fp,t_exec_p *exec)
+void	ft_child(t_cmd *list, t_vr *vr, t_exec_p *exec)
 {
 	char *cmd;
-	(void)fp;
-	cmd = ft_checkaccess(list->cmd[0], get_path_splited(vr->env));
+
 	if (exec->fd[0] != 0)
 		dup2(exec->fd[0], 0);
 	else
 		dup2(exec->fd_in, 0);
-	if (exec->fd[1] != 0)
+	if (exec->fd[1]  != 0)
 		dup2(exec->fd[1], 1);
 	else if(list->next)
 		dup2(exec->p[1], 1);
+	if (in_builtin(list))
+	{
+		exec_builtin(list, vr, 1);
+		exit(exitcode);
+	}
+	if (access(list->cmd[0], X_OK) && !in_builtin(list))
+	{
+		cmd = ft_checkaccess(list->cmd[0], get_path_splited(vr->env));
+		ft_strlcpy(list->cmd[0],cmd, (size_t)ft_strlen(cmd) + 1);
+		free (cmd);
+	}
 	close(exec->p[0]);
 	close(exec->p[1]);
-	ft_strlcpy(list->cmd[0],cmd, (size_t)ft_strlen(cmd) + 1);
-	// free (cmd);
-	exec_builtin(list, vr);
-	if (in_builtin(list) == 0)
+	if (!in_builtin(list))
 	{
 		if (execve(list->cmd[0], list->cmd, NULL) < 0)
 		{
@@ -161,27 +149,6 @@ void	ft_child(t_cmd *list, t_vr *vr, int fp,t_exec_p *exec)
 	}
 }
 
-int *open_pipe(t_cmd *list)
-{
-	int	*fd;
-	int	i;
-
-	fd = malloc(sizeof(int) * (list->pipe_num * 2));
-	if(!fd)
-	{
-		perror("memory");
-		exit (1);
-	}
-	i = 0;
-	while(i < list->pipe_num)
-	{
-		if(pipe(fd +i*2) < 0)
-			perror("couldn't pipe");
-		i++;
-	}
-	return (fd);
-}
-
 int	ft_lstlen(t_cmd *lst)
 {
 	int		len;
@@ -189,7 +156,7 @@ int	ft_lstlen(t_cmd *lst)
 
 	tmp = lst;
 	len = 0;
-	while (tmp != NULL)
+	while (tmp)
 	{
 		len++;
 		tmp = tmp->next;
@@ -197,7 +164,7 @@ int	ft_lstlen(t_cmd *lst)
 	return (len);
 }
 
-void	exec_pipe(t_cmd *list, t_vr *vr,int  fd_p)
+void	exec_pipe(t_cmd *list, t_vr *vr)
 {
 	t_exec_p *exec;
 	int		pipe_num;
@@ -211,19 +178,19 @@ void	exec_pipe(t_cmd *list, t_vr *vr,int  fd_p)
 	{
 		exec->fd = openfile(list);
 		list->pipe_num = pipe_num;
-		if(!list->next && in_builtin(list))
+		if(!list->next && in_builtin(list) )
 		{
 			if (exec->fd[1] >= 3)
-				dup2(exec->fd[1],1);
-			exec_builtin(list, vr);
-			dup2(STDIN_FILENO,1);
+				exec_builtin(list, vr, exec->fd[1]);
+			else
+				exec_builtin(list, vr, 1);
 		}
 		else
 		{
 			pipe(exec->p);
 			exec->pid = fork();
-			if (exec->pid == 0 && !in_builtin(list))
-				ft_child(list, vr, fd_p,exec);
+			if (exec->pid == 0)
+				ft_child(list, vr, exec);
 			else
 			{
 				waitpid(0,NULL,0);

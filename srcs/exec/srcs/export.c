@@ -6,15 +6,15 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:34:22 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/03 20:47:11 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/05 15:38:49 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/header.h"
 
-extern int exitcode;
 
-void	export(t_cmd *list, t_vr *vr)
+
+void	export(t_cmd *list, t_vr *vr, int fd)
 {
 	int	i;
 	int	j;
@@ -22,14 +22,19 @@ void	export(t_cmd *list, t_vr *vr)
 	i = 0;
 	while (list->cmd[++i])
 	{
-		if(ft_strnstr(list->cmd[i], "=", ft_strlen(list->cmd[i])))
+		if(ft_strnstr(list->cmd[i], "=", ft_strlen(list->cmd[i])) && ft_isalpha(list->cmd[i][0]))
 		{
 			vr->env[vr->envlen++] = ft_strdup(list->cmd[i]);
 			vr->export[vr->explen++] = export_ut(list->cmd[i]);
 
 		}
-		else
+		else if (ft_isalpha(list->cmd[i][0]))
 			vr->export[vr->explen++] = export_ut(list->cmd[i]);
+		else
+		{
+			printf("not a valid identifier\n");
+			exitcode = 1;
+		}
 	}
 	vr->env[vr->envlen] = NULL;
 	vr->export[vr->explen] = NULL;
@@ -37,13 +42,11 @@ void	export(t_cmd *list, t_vr *vr)
 	{
 		j = -1;
 		while (vr->export[++j])
-			printf("%s\n",vr->export[j]);
+		{
+			ft_putstr_fd(vr->export[j], fd);
+			ft_putstr_fd("\n", fd);
+		}
 	}
-	// for(int i = 0;vr->env[i];i++)
-	// 	printf("%s\n",vr->env[i]);
-	// printf("********************************************\n");
-	// for(int i = 0;vr->export[i];i++)
-	// 	printf("%s\n",vr->export[i]);
 }
 
 char *export_ut(char *envp)
@@ -92,7 +95,6 @@ char **fill_export(char **envp, t_vr	*vr)
 	while (envp[++i])
 		exp[i] = export_ut(envp[i]);
 	exp[i] = NULL;
-	// vr->explen = malloc(sizeof(int));
 	vr->explen = i;
 	return (exp);
 }

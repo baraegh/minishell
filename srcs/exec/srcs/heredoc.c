@@ -6,44 +6,34 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 10:12:26 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/03 20:47:16 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/05 15:39:04 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/header.h"
 
-extern int exitcode;
+int	heredoc(char *file_name)
+{
+	char	*rd = NULL;
+	int		fd[2];
 
-// int		heredoc(t_cmd *list)
-// {
-// 	char	*rd;
-// 	int		fd[3];
-// 	t_cmd	*tmp;
+	if(pipe(fd) < 0)
+	{
+		printf("Permission denied\n");
+		exitcode = 1;
+	}
+	rd = readline(">");
+	while (ft_strncmp(rd, file_name, ft_strlen(rd)))
+	{
+		ft_putstr_fd(rd, fd[1]);
+		ft_putstr_fd("\n", fd[1]);
+		rd = readline(">");
+	}
+	close (fd[1]);
+	return (fd[0]);
+}
 
-// 	tmp = list;
-// 	if (pipe(fd) < 0)
-// 	{
-// 		printf("pipe error");
-// 		exit(1);
-// 	}
-// 	while (tmp->file)
-// 	{
-// 		if (tmp->file->type == 5)
-// 		{
-// 			while (strncmp(rd,tmp->file->file_name, ft_strlen(tmp->file->file_name)))
-// 			{
-// 				rd = readline(">");
-// 				ft_putstr_fd(rd, fd[1]);
-// 				ft_putstr_fd("\n", fd[1]);
-// 			}
-// 		}
-// 		tmp->file = tmp->file->next;
-// 	}
-// 	close(fd[1]);
-// 	return (fd[0]);
-// }
-
-void	echo(t_cmd *list)
+void	echo(t_cmd *list, int fd)
 {
 	int	i;
 
@@ -51,12 +41,15 @@ void	echo(t_cmd *list)
 	{
 		i = 1;
 		while(list->cmd[++i])
-			ft_putstr_fd(list->cmd[i], 1);
+			ft_putstr_fd(list->cmd[i], fd);
 	}
 	else
 	{
 		i = 0;
 		while(list->cmd[++i])
-			printf("%s\n",list->cmd[i]);
+		{
+			ft_putstr_fd(list->cmd[i],fd);
+			ft_putstr_fd("\n",fd);
+		}
 	}
 }

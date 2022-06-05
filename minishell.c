@@ -6,12 +6,13 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 00:17:00 by barae             #+#    #+#             */
-/*   Updated: 2022/06/03 20:45:16 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/05 15:40:52 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/header.h"
 
+int	exitcode;
 
 void	print_t_cmd(t_cmd *list)
 {
@@ -53,7 +54,6 @@ int	main(int ac, char **av, char **env)
 	t_parser	*parser = NULL;
 	t_cmd		*list = NULL;
 	t_vr		*vr;
-	int fd = 0;
 
 	(void) ac;
 	(void) av;
@@ -77,9 +77,8 @@ int	main(int ac, char **av, char **env)
 		// // if (!parser)
 		// 	// return
 		list = parser_parse(parser);
-		// fd = heredoc(list);
-		exec_pipe(list, vr,fd);
 		// print_t_cmd(list);
+		exec_pipe(list, vr);
 		// free(lexer);
 		// free(token);
 		// free(parser->current_token);

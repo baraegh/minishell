@@ -6,13 +6,12 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:12:56 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/03 20:58:29 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/05 15:38:59 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/header.h"
 
-extern int exitcode;
 t_vr	*fill_env(char **envp)
 {
 	t_vr	*vr;
@@ -39,7 +38,7 @@ t_vr	*fill_env(char **envp)
 	return (vr);
 }
 
-void	env(char **cmd,t_vr *vr)
+void	env(char **cmd,t_vr *vr, int fd)
 {
 	int	i;
 
@@ -54,7 +53,10 @@ void	env(char **cmd,t_vr *vr)
 	{
 		i = -1;
 		while (vr->env[++i])
-			printf("%s\n",vr->env[i]);
+		{
+			ft_putstr_fd(vr->env[i], fd);
+			ft_putstr_fd("\n", fd);
+		}
 	}
 }
 void	cd(t_cmd *list)
@@ -74,9 +76,10 @@ void	cd(t_cmd *list)
 			exitcode = 1;
 		return ;
 	}
+	exitcode = 0;
 }
 
-void	pwd()
+void	pwd(int fd)
 {
 	char	cwd[500];
 
@@ -86,25 +89,29 @@ void	pwd()
 		exitcode = 1;
 	}
 	else
-		printf("%s\n",cwd);
+	{
+		ft_putstr_fd(cwd, fd);
+		ft_putstr_fd("\n", fd);
+		exitcode = 0;
+	}
 }
 
-int		exec_builtin(t_cmd *list,t_vr *vr)
+int		exec_builtin(t_cmd *list,t_vr *vr,int fd)
 {
 	if (list->cmd[0])
 	{
 		if (!ft_strncmp(list->cmd[0], "echo", 4))
-			echo(list);
+			echo(list, fd);
 		if (!ft_strncmp(list->cmd[0], "cd", 2))
 			cd(list);
 		else if (!ft_strncmp(list->cmd[0], "pwd", 3))
-			pwd();
+			pwd(fd);
 		else if (!ft_strncmp(list->cmd[0], "export", 6))
-			export(list, vr);
+			export(list, vr, fd);
 		else if (!ft_strncmp(list->cmd[0], "unset", 5))
 			vr  = unset(list->cmd, vr);
 		else if (!ft_strncmp(list->cmd[0], "env", 3))
-			env(list->cmd, vr);
+			env(list->cmd, vr, fd);
 		else if (!ft_strncmp(list->cmd[0], "exit", 4))
 			ft_exit(list);
 		else if (!ft_strncmp(list->cmd[0], "$?", 2))
@@ -119,9 +126,8 @@ int in_builtin(t_cmd *list)
 	int		i;
 
 	i = 0;
-	while (i++ < 6)
+	while (i++ < 8)
 	{
-		// printf("%s\n",arr[i]);
 		if (!ft_strncmp(arr[i], list->cmd[0], ft_strlen(list->cmd[0])))
 		{
 			return (1);

@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 03:51:23 by barae             #+#    #+#             */
-/*   Updated: 2022/06/03 20:40:39 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/05 15:40:03 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@
 # include "struct_cmd.h"
 # include "parser.h"
 # include "exec.h"
+
+extern int exitcode;
 
 #endif

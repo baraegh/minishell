@@ -6,17 +6,18 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:05:54 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/03 20:47:23 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/05 15:38:49 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/header.h"
 
-extern int exitcode;
+
 
 char	**unset_ut(char *arg, char **target, int len)
 {
 	char	**str;
+	char	*word;
 	int		i;
 	int		j;
 
@@ -26,15 +27,18 @@ char	**unset_ut(char *arg, char **target, int len)
 	if(!str)
 	{
 		perror("allocation failde");
-		exit (1);
+		exitcode = 1;
 	}
 	i = -1;
 	j = -1;
 	while (target[++i])
 	{
-		if(ft_strnstr(target[i], arg, len))
+		word = unset_word(target[i]);
+		if(ft_strnstr(target[i], arg, len)
+			&& !ft_strncmp(arg, word, ft_strlen(word)))
 			continue;
 		str[++j] = ft_strdup(target[i]);
+		free (word);
 	}
 	str[j] = NULL;
 	// ft_freetwo(target);
@@ -52,4 +56,19 @@ t_vr	*unset(char **cmd, t_vr *vr)
 		vr->export = unset_ut(cmd[i], vr->export, ft_strlen(cmd[i]) + 11);
 	}
 	return (vr);
+}
+
+char *unset_word(char *target)
+{
+	int	i;
+	char *str;
+
+	i = 0;
+	str =  malloc(500);
+	while (target[i] && target[i] != '=')
+	{
+		str[i] = target[i];
+		i++;
+	}
+	return (str);
 }
