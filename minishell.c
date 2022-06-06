@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 00:17:00 by barae             #+#    #+#             */
-/*   Updated: 2022/05/30 18:27:21 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/06 14:39:30 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_t_cmd(t_cmd *list)
 	head = list;
 	while (head)
 	{
-		if (head!= NULL)
+		if (head != NULL)
 		{
 			printf("cmd: %s\n", head->cmd[0]);
 			j = 1;
@@ -57,9 +57,9 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		command = readline("minishell 👻 $ ");
+		if (!command || !*command)
+			continue ;
 		add_history(command);
-		// if (!command)
-		// 	continue ;
 		lexer = init_lexer(command);
 		if (!lexer)
 			continue ;
@@ -68,11 +68,11 @@ int	main(int ac, char **av, char **env)
 		// 	// return
 		list = parser_parse(parser);
 		print_t_cmd(list);
-		// free(lexer);
-		// free(token);
-		// free(parser->current_token);
-		// free(parser->previous_token);
-		// free(command);
+		free(command);
+		free(lexer);
+		free(parser->current_token);
+		free(parser->previous_token);
+		free(parser);
 		// system("Leaks minishell");
 	}
 	return (0);
