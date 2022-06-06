@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:12:56 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/05 15:38:59 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:55:29 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	env(char **cmd,t_vr *vr, int fd)
 			ft_putstr_fd("\n", fd);
 		}
 	}
+	exitcode = 0;
 }
 void	cd(t_cmd *list)
 {
@@ -100,33 +101,34 @@ int		exec_builtin(t_cmd *list,t_vr *vr,int fd)
 {
 	if (list->cmd[0])
 	{
-		if (!ft_strncmp(list->cmd[0], "echo", 4))
+		if (!ft_strncmp(list->cmd[0], "echo", ft_strlen("echo"))
+			|| !ft_strncmp(list->cmd[0], "/bin/echo", ft_strlen("/bin/echo")))
 			echo(list, fd);
-		if (!ft_strncmp(list->cmd[0], "cd", 2))
+		if (!ft_strncmp(list->cmd[0], "cd", 2) || !ft_strncmp(list->cmd[0], "/usr/bin/cd", ft_strlen("/usr/bin/cd")))
 			cd(list);
-		else if (!ft_strncmp(list->cmd[0], "pwd", 3))
+		else if (!ft_strncmp(list->cmd[0], "pwd", 3) || !ft_strncmp(list->cmd[0], "/bin/pwd", ft_strlen("/bin/pwd")))
 			pwd(fd);
 		else if (!ft_strncmp(list->cmd[0], "export", 6))
 			export(list, vr, fd);
 		else if (!ft_strncmp(list->cmd[0], "unset", 5))
 			vr  = unset(list->cmd, vr);
-		else if (!ft_strncmp(list->cmd[0], "env", 3))
+		else if (!ft_strncmp(list->cmd[0], "env", 3) || !ft_strncmp(list->cmd[0], "/usr/bin/env", ft_strlen("/usr/bin/env")))
 			env(list->cmd, vr, fd);
 		else if (!ft_strncmp(list->cmd[0], "exit", 4))
 			ft_exit(list);
 		else if (!ft_strncmp(list->cmd[0], "$?", 2))
-			printf("%d\n",exitcode);
+			printf("bash: %d: command not found\n",exitcode);
 	}
 	return(0);
 }
 
 int in_builtin(t_cmd *list)
 {
-	char	arr[8][7] = {"echo", "cd", "pwd", "export", "unset", "env", "exit","$?"};
+	char	arr[12][12] = {"echo", "cd", "pwd", "export", "unset", "env", "exit","$?", "/bin/pwd", "/usr/bin/cd", "/usr/bin/env", "/bin/echo"};
 	int		i;
 
-	i = 0;
-	while (i++ < 8)
+	i = -1;
+	while (++i < 12)
 	{
 		if (!ft_strncmp(arr[i], list->cmd[0], ft_strlen(list->cmd[0])))
 		{

@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:20:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/05 15:38:54 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:54:05 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,8 @@ void	exec_pipe(t_cmd *list, t_vr *vr)
 	t_exec_p *exec;
 	int		pipe_num;
 
+	if(!list)
+		return ;
 	exec = malloc(sizeof(t_exec_p));
 	exec->cmdnbr = 0;
 	list->pipe_num = ft_lstlen(list);
@@ -180,7 +182,7 @@ void	exec_pipe(t_cmd *list, t_vr *vr)
 		list->pipe_num = pipe_num;
 		if(!list->next && in_builtin(list) )
 		{
-			if (exec->fd[1] >= 3)
+			if (exec->fd[1] != 0)
 				exec_builtin(list, vr, exec->fd[1]);
 			else
 				exec_builtin(list, vr, 1);
@@ -193,7 +195,7 @@ void	exec_pipe(t_cmd *list, t_vr *vr)
 				ft_child(list, vr, exec);
 			else
 			{
-				waitpid(0,NULL,0);
+				// waitpid(0,NULL,0);
 				close(exec->p[1]);
 				exec->fd_in = exec->p[0];
 			}
@@ -201,6 +203,9 @@ void	exec_pipe(t_cmd *list, t_vr *vr)
 		list = list->next;
 		exec->cmdnbr++;
 	}
+	int  i = -1;
+	while (++i < pipe_num)
+		waitpid(0,NULL,0);
 	free (exec->fd);
 	free (exec);
 }

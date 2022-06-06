@@ -6,13 +6,13 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 00:17:00 by barae             #+#    #+#             */
-/*   Updated: 2022/06/05 15:40:52 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:43:50 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/header.h"
 
-int	exitcode;
+int	exitcode = 0;
 
 void	print_t_cmd(t_cmd *list)
 {
@@ -58,7 +58,7 @@ int	main(int ac, char **av, char **env)
 	(void) ac;
 	(void) av;
 	vr = fill_env(env);
-	vr->export = fill_export(env, vr);
+	// vr->export = fill_export(env, vr);
 	while (1)
 	{
 		command = readline("minishell 👾 $ ");

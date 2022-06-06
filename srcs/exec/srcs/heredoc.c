@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 10:12:26 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/05 15:39:04 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:57:23 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,7 @@ void	echo(t_cmd *list, int fd)
 			ft_putstr_fd(list->cmd[i],fd);
 			ft_putstr_fd("\n",fd);
 		}
+		if (i == 1)
+			ft_putstr_fd("\n",fd);
 	}
 }
