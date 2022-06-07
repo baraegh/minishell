@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 00:17:00 by barae             #+#    #+#             */
-/*   Updated: 2022/06/06 14:39:30 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/06 17:14:02 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,14 @@ void	print_t_cmd(t_cmd *list)
 		if (head != NULL)
 		{
 			printf("cmd: %s\n", head->cmd[0]);
-			j = 1;
-			while (head->cmd[j])
+			if (head->cmd[0] != NULL)
 			{
-				printf("arg: %s\n", head->cmd[j]);
-				j++;
+				j = 1;
+				while (head->cmd[j])
+				{
+					printf("arg: %s\n", head->cmd[j]);
+					j++;
+				}
 			}
 			f_head = head->file;
 			while (f_head)

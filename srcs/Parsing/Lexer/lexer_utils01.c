@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:31:17 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/06 15:29:36 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/07 15:22:06 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,10 @@ char	*lexer_get_value(t_lexer *lexer)
 	{
 		if (lexer->c == '$')
 		{
-			if (lexer_advance(lexer) && (lexer->c == '"' || lexer->c == '\''))
-				continue ;
 			s = handle_dollar(lexer);
 			if (!s)
 			{
+				lexer_advance(lexer);
 				s = ft_calloc(1, sizeof(char));
 				// if (!s)
 				// 	return
@@ -111,6 +110,11 @@ char	*lexer_get_value_skip_quote(t_lexer *lexer, char c)
 			s = handle_dollar(lexer);
 			if (!s)
 			{
+				if (lexer->c == '$')
+				{
+					value = ft_strjoin(value, "$");
+					lexer_advance(lexer);
+				}
 				s = ft_calloc(1, sizeof(char));
 				// if (!s)
 				// 	return
@@ -129,11 +133,8 @@ char	*lexer_get_value_skip_quote(t_lexer *lexer, char c)
 		if (lexer->c == c)
 		{
 			lexer_advance(lexer);
-			printf("c: %c\n", lexer->c);
 			if (lexer->c == ' ' || lexer->c == '|')
 				break ;
-			else if (lexer->c == '$')
-				continue ;
 			else if (ft_isprint(lexer->c))
 				return (ft_strjoin(value, lexer_get_value(lexer)));
 			continue ;

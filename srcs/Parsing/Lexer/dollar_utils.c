@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 13:38:05 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/06 15:13:25 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/07 15:26:19 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,15 @@ char	*get_str2(t_lexer *lexer)
 
 char	*handle_dollar(t_lexer *lexer)
 {
-	char	*s;
+	char	*s = NULL;
 	char	*value;
 
 	if (lexer_advance(lexer)
 		&& (lexer->c == '"' || lexer->c == '\''))
-		return ("$");
+	{
+		lexer_back(lexer);
+		return (NULL);
+	}
 	if (!lexer->c)
 		return ("$");
 	if (lexer->c == '?')
