@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:05:54 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/07 12:01:25 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/07 17:48:15 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@ void	ft_freetwo(char **target)
 {
 	int	i;
 
-	i = -1;
-	while (target[++i])
+	i = 0;
+	while (target[i])
+	{
 		free(target[i]);
+		i++;
+	}
 	free(target);
+	target = NULL;
 }
 
 char	**unset_ut(char *arg, char **target, int len)

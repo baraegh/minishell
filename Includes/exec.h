@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:08:16 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/07 11:44:41 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/07 18:06:49 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ typedef struct s_exec_p
 	int		*fd;
 	pid_t	pid;
 	int		cmdnbr;
-	int		*fd_f;
 	int		p[2];
 	int		fd_in;
 	int		fd_heredoc;

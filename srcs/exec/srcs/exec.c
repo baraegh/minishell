@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:20:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/07 12:27:30 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/07 18:11:18 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void	ft_child(t_cmd *list, t_vr *vr, t_exec_p *exec)
 	}
 	close(exec->p[0]);
 	close(exec->p[1]);
+	// ft_freetwo(vr->export);
 	if (!in_builtin(list))
 	{
 		if (execve(list->cmd[0], list->cmd, vr->env) < 0)
@@ -159,6 +160,8 @@ void	exec_pipe(t_cmd *list, t_vr *vr)
 				exec->fd_in = exec->p[0];
 			}
 		}
+		ft_freetwo(list->cmd);
+		free (list);
 		list = list->next;
 		exec->cmdnbr++;
 		free (exec->fd);
@@ -167,4 +170,5 @@ void	exec_pipe(t_cmd *list, t_vr *vr)
 	while (++i < pipe_num)
 		waitpid(0,NULL,0);
 	free (exec);
+	// ft_freetwo(vr->export);
 }

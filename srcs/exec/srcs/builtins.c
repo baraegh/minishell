@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:12:56 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/07 09:37:07 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/07 18:22:45 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ t_vr	*fill_env(char **envp)
 
 	i = 0;
 	vr = malloc(sizeof(t_vr));
-	while (envp[i++]);
+	while (envp[i++])
+		;
 	vr->env = malloc(sizeof(char *) * i);
-	if(!vr->env)
-	{
-		perror("");
-		exitcode = 1;
-	}
+	if (!vr->env)
+		ft_error("allocation failde", 1);
 	i = 0;
 	while (envp[i] != NULL)
 	{
@@ -37,7 +35,7 @@ t_vr	*fill_env(char **envp)
 	return (vr);
 }
 
-void	env(char **cmd,t_vr *vr, int fd)
+void	env(char **cmd, t_vr *vr, int fd)
 {
 	int	i;
 
@@ -47,28 +45,32 @@ void	env(char **cmd,t_vr *vr, int fd)
 		ft_error("cd : no such file or directory", 127);
 		i++;
 	}
-	if(i == 1)
+	if (i == 1)
 	{
 		i = -1;
 		while (vr->env[++i])
 		{
-			ft_putstr_fd(vr->env[i], fd);
-			ft_putstr_fd("\n", fd);
+			if (ft_strchr(vr->env[i], '='))
+			{
+				ft_putstr_fd(vr->env[i], fd);
+				ft_putstr_fd("\n", fd);
+			}
 		}
 	}
 	exitcode = 0;
 }
+
 void	cd(t_cmd *list)
 {
 	if (list->cmd[0] && !list->cmd[1])
 	{
-		if(chdir("/Users/ael-bach") < 0)
+		if (chdir("/Users/ael-bach") < 0)
 		{
 			ft_error("cd : no such file or directory", 1);
 			return ;
 		}
 	}
-	else if(chdir(list->cmd[1]) < 0)
+	else if (chdir(list->cmd[1]) < 0)
 	{
 		ft_error("cd : no such file or directory", 1);
 		return ;
@@ -80,7 +82,7 @@ void	pwd(int fd)
 {
 	char	cwd[1000];
 
-	if(!getcwd(cwd,sizeof(cwd)))
+	if (!getcwd(cwd, sizeof(cwd)))
 		ft_error("pwd error", 1);
 	else
 	{
@@ -90,7 +92,7 @@ void	pwd(int fd)
 	}
 }
 
-int		exec_builtin(t_cmd *list,t_vr *vr,int fd)
+int	exec_builtin(t_cmd *list, t_vr *vr, int fd)
 {
 	if (list->cmd[0])
 	{
@@ -98,7 +100,7 @@ int		exec_builtin(t_cmd *list,t_vr *vr,int fd)
 			|| !ft_strncmp(list->cmd[0], "/bin/echo", ft_strlen("/bin/echo")))
 			echo(list, fd);
 		if (!ft_strncmp(list->cmd[0], "cd", 2)
-			|| !ft_strncmp(list->cmd[0], "/usr/bin/cd", ft_strlen("/usr/bin/cd")))
+			||!ft_strncmp(list->cmd[0], "/usr/bin/cd", ft_strlen("/usr/bin/cd")))
 			cd(list);
 		else if (!ft_strncmp(list->cmd[0], "pwd", 3)
 			|| !ft_strncmp(list->cmd[0], "/bin/pwd", ft_strlen("/bin/pwd")))
@@ -120,47 +122,62 @@ int		exec_builtin(t_cmd *list,t_vr *vr,int fd)
 
 int in_builtin(t_cmd *list)
 {
-	char	arr[12][12] = {"echo", "cd", "pwd", "export", "unset", "env", "exit","$?", "/bin/pwd", "/usr/bin/cd", "/usr/bin/env", "/bin/echo"};
+	char	*str;
+	char	**arr;
 	int		i;
 
+	str = "echo cd pwd export unset env exit $? /bin/pwd /usr/bin/cd /usr/bin/env /bin/echo";
+	arr = ft_split(str, ' ');
 	i = -1;
 	while (++i < 12)
 	{
 		if (!ft_strncmp(arr[i], list->cmd[0], ft_strlen(list->cmd[0])))
 		{
+			ft_freetwo(arr);
 			return (1);
-			break;	
 		}
 	}
+	ft_freetwo(arr);
 	return (0);
 }
 
-void	 ft_exit(t_cmd *list)
+
+int	ft_exit_2(t_cmd *list)
 {
 	int	i;
 
-	i = 1;
-	list->pipe_num +=0; 
-	// while (list->cmd[i])
-	// {
-	// 	if (!ft_atoi(list->cmd[i]))
-	// 	{
-	// 		printf("exit\nnumeric argument required\n");
-	// 		exitcode = ft_atoi(list->cmd[i]) < 0 ? 255 - ft_atoi(list->cmd[i]) * -1 : ft_atoi(list->cmd[i]);
-	// 		break;
-	// 	}
-	// 	if (ft_atoi(list->cmd[i]) && !ft_atoi(list->cmd[i+1]))
-	// 	{
-	// 		printf("too many arguments\n");
-	// 		break;
-	// 	}
-	// 	i++;
-	// }
-	// if(i == 1)
-	// {
+	i = 0;
+	while (list->cmd[++i])
+	{
+		if (!ft_atoi(list->cmd[i]))
+		{
+			printf("exit\nexit : numeric argument required\n");
+			exitcode = 255;
+			exit (exitcode);
+		}
+		else if (ft_atoi(list->cmd[i]) && !list->cmd[i + 1] && ft_isdigit(list->cmd[i][0]))
+		{
+			ft_error("exit", ft_atoi(list->cmd[i]));
+			exit (ft_atoi(list->cmd[i]));
+		}
+		else if (ft_atoi(list->cmd[i]) && ft_atoi(list->cmd[i + 1]))
+		{
+			ft_error("exit : too many arguments", 1);
+			return (-1);
+		}
+	}
+	return (i);
+}
+
+void	ft_exit(t_cmd *list)
+{
+	int	i;
+
+	i = ft_exit_2(list);
+	if (i == 1)
+	{
 		printf("exit\n");
-		// exitcode = 0;
+		exitcode = 0;
 		exit(exitcode);
-	// }
-	// else
+	}
 }
