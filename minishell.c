@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 00:17:00 by barae             #+#    #+#             */
-/*   Updated: 2022/06/06 16:43:50 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/07 10:14:02 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	main(int ac, char **av, char **env)
 	(void) ac;
 	(void) av;
 	vr = fill_env(env);
-	// vr->export = fill_export(env, vr);
+	vr->export = fill_export(env, vr);
 	while (1)
 	{
 		command = readline("minishell 👾 $ ");
@@ -80,7 +80,7 @@ int	main(int ac, char **av, char **env)
 		// print_t_cmd(list);
 		exec_pipe(list, vr);
 		// free(lexer);
-		// free(token);
+		// // free(token);
 		// free(parser->current_token);
 		// free(parser->previous_token);
 		// free(command);

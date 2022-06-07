@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:12:56 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/06 15:55:29 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/07 09:37:07 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_vr	*fill_env(char **envp)
 		i++;
 	}
 	vr->env[i] = NULL;
-	// vr->envlen = malloc(sizeof(int));
 	vr->envlen = i;
 	return (vr);
 }
@@ -45,8 +44,7 @@ void	env(char **cmd,t_vr *vr, int fd)
 	i = 1;
 	while (cmd[i])
 	{
-		printf("cd : no such file or directory\n");
-		exitcode = 127;
+		ft_error("cd : no such file or directory", 127);
 		i++;
 	}
 	if(i == 1)
@@ -66,15 +64,13 @@ void	cd(t_cmd *list)
 	{
 		if(chdir("/Users/ael-bach") < 0)
 		{
-			printf("cd : no such file or directory\n");
-			exitcode = 1;
+			ft_error("cd : no such file or directory", 1);
 			return ;
 		}
 	}
 	else if(chdir(list->cmd[1]) < 0)
 	{
-		printf("cd : no such file or directory\n");
-			exitcode = 1;
+		ft_error("cd : no such file or directory", 1);
 		return ;
 	}
 	exitcode = 0;
@@ -82,13 +78,10 @@ void	cd(t_cmd *list)
 
 void	pwd(int fd)
 {
-	char	cwd[500];
+	char	cwd[1000];
 
 	if(!getcwd(cwd,sizeof(cwd)))
-	{
-		perror("");
-		exitcode = 1;
-	}
+		ft_error("pwd error", 1);
 	else
 	{
 		ft_putstr_fd(cwd, fd);
@@ -104,15 +97,18 @@ int		exec_builtin(t_cmd *list,t_vr *vr,int fd)
 		if (!ft_strncmp(list->cmd[0], "echo", ft_strlen("echo"))
 			|| !ft_strncmp(list->cmd[0], "/bin/echo", ft_strlen("/bin/echo")))
 			echo(list, fd);
-		if (!ft_strncmp(list->cmd[0], "cd", 2) || !ft_strncmp(list->cmd[0], "/usr/bin/cd", ft_strlen("/usr/bin/cd")))
+		if (!ft_strncmp(list->cmd[0], "cd", 2)
+			|| !ft_strncmp(list->cmd[0], "/usr/bin/cd", ft_strlen("/usr/bin/cd")))
 			cd(list);
-		else if (!ft_strncmp(list->cmd[0], "pwd", 3) || !ft_strncmp(list->cmd[0], "/bin/pwd", ft_strlen("/bin/pwd")))
+		else if (!ft_strncmp(list->cmd[0], "pwd", 3)
+			|| !ft_strncmp(list->cmd[0], "/bin/pwd", ft_strlen("/bin/pwd")))
 			pwd(fd);
 		else if (!ft_strncmp(list->cmd[0], "export", 6))
 			export(list, vr, fd);
 		else if (!ft_strncmp(list->cmd[0], "unset", 5))
 			vr  = unset(list->cmd, vr);
-		else if (!ft_strncmp(list->cmd[0], "env", 3) || !ft_strncmp(list->cmd[0], "/usr/bin/env", ft_strlen("/usr/bin/env")))
+		else if (!ft_strncmp(list->cmd[0], "env", 3)
+			|| !ft_strncmp(list->cmd[0], "/usr/bin/env", ft_strlen("/usr/bin/env")))
 			env(list->cmd, vr, fd);
 		else if (!ft_strncmp(list->cmd[0], "exit", 4))
 			ft_exit(list);
