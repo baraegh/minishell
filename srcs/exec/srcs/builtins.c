@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:12:56 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/07 18:22:45 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/08 12:58:01 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	exec_builtin(t_cmd *list, t_vr *vr, int fd)
 		else if (!ft_strncmp(list->cmd[0], "exit", 4))
 			ft_exit(list);
 		else if (!ft_strncmp(list->cmd[0], "$?", 2))
-			printf("bash: %d: command not found\n",exitcode);
+			printf("minishell: %d: command not found\n", exitcode);
 	}
 	return(0);
 }
@@ -126,7 +126,8 @@ int in_builtin(t_cmd *list)
 	char	**arr;
 	int		i;
 
-	str = "echo cd pwd export unset env exit $? /bin/pwd /usr/bin/cd /usr/bin/env /bin/echo";
+	str = "echo cd pwd export unset env exit $?\
+	 /bin/pwd /usr/bin/cd /usr/bin/env /bin/echo";
 	arr = ft_split(str, ' ');
 	i = -1;
 	while (++i < 12)

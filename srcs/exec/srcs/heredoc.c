@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 10:12:26 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/07 11:59:58 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/08 12:55:18 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,58 @@ int	heredoc(char *file_name)
 	return (fd[0]);
 }
 
+int	check_arg(char *arg)
+{
+	int	i;
+
+	if (arg[0] == '-' && arg[1] == 'n')
+	{
+		i = 0;
+		while (arg[++i])
+		{
+			if (arg[i] != 'n')
+				return (0);
+		}
+		return (1);
+	}
+	return (0);
+}
+
+void	print_echo(char **cmd, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[++i])
+	{
+		ft_putstr_fd(cmd[i], fd);
+		if (cmd[i + 1])
+			ft_putchar_fd(' ', fd);
+	}
+	ft_putchar_fd('\n', fd);
+}
+
 void	echo(t_cmd *list, int fd)
 {
 	int	i;
 
 	if (!ft_strncmp(list->cmd[1], "-n", 2))
 	{
-		i = 1;
-		while (list->cmd[++i])
-			ft_putstr_fd(list->cmd[i], fd);
-	}
-	else
-	{
 		i = 0;
 		while (list->cmd[++i])
 		{
-			ft_putstr_fd(list->cmd[i], fd);
-			ft_putstr_fd("\n", fd);
+			if (!check_arg(list->cmd[i]))
+			{
+				while (list->cmd[i])
+				{
+					ft_putstr_fd(list->cmd[i++], fd);
+					if (list->cmd[i])
+						ft_putchar_fd(' ', fd);
+				}
+				return ;
+			}
 		}
-		if (i == 1)
-			ft_putstr_fd("\n", fd);
 	}
+	else
+		print_echo(list->cmd, fd);
 }

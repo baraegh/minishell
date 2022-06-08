@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 00:17:00 by barae             #+#    #+#             */
-/*   Updated: 2022/06/07 18:21:07 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/08 12:09:25 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	main(int ac, char **av, char **env)
 		free(parser->previous_token);
 		free(command);
 		// ft_freetwo(vr->export);
-		system("Leaks minishell");
+		// system("Leaks minishell");
 	}
 	return (0);
 }

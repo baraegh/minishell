@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:20:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/07 18:11:18 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/08 12:23:05 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,31 @@ char	*ft_checkaccess(char *cmd, char **env)
 	return (check);
 }
 
+int	*openfile_ut(t_file *file , int *fd)
+{
+	if (file->type == 2)
+	{
+		fd[1] = open(file->file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
+		if (fd[1] < 0)
+			ft_error("no permessions", 1);
+	}
+	if (file->type == 4)
+	{
+		fd[1] = open(file->file_name, O_RDWR | O_CREAT | O_APPEND , 0644);
+		if (fd[1] < 0)
+			ft_error("no permessions", 1);
+	}
+	if (file->type == 3)
+	{
+		fd[0] = open(file->file_name, O_RDONLY , 0644);
+		if (fd[0] < 0)
+			ft_error("no permessions", 1);
+	}
+	if (file->type == 5)
+		fd[0] = heredoc(file->file_name);
+	return (fd);
+}
+
 int	*openfile(t_cmd *list)
 {
 	int *fd;
@@ -75,26 +100,7 @@ int	*openfile(t_cmd *list)
 	fd[1] = 0;
 	while (tmp->file)
 	{
-		if (tmp->file->type == 2)
-		{
-			fd[1] = open(tmp->file->file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
-			if (fd[1] < 0)
-				ft_error("no permessions", 1);
-		}
-		if (tmp->file->type == 4)
-		{
-			fd[1] = open(tmp->file->file_name, O_RDWR | O_CREAT | O_APPEND , 0644);
-			if (fd[1] < 0)
-				ft_error("no permessions", 1);
-		}
-		if (tmp->file->type == 3)
-		{
-			fd[0] = open(tmp->file->file_name, O_RDONLY , 0644);
-			if (fd[0] < 0)
-				ft_error("no permessions", 1);
-		}
-		if (tmp->file->type == 5)
-			fd[0] = heredoc(tmp->file->file_name);
+		fd = openfile_ut(tmp->file, fd);
 		tmp->file = tmp->file->next;
 	}
 	return (fd);
@@ -118,11 +124,10 @@ void	ft_child(t_cmd *list, t_vr *vr, t_exec_p *exec)
 	}
 	close(exec->p[0]);
 	close(exec->p[1]);
-	// ft_freetwo(vr->export);
 	if (!in_builtin(list))
 	{
 		if (execve(list->cmd[0], list->cmd, vr->env) < 0)
-			ft_error("bash ", 1);
+			ft_error("minishell : command not found", 1);
 	}
 }
 
@@ -170,5 +175,4 @@ void	exec_pipe(t_cmd *list, t_vr *vr)
 	while (++i < pipe_num)
 		waitpid(0,NULL,0);
 	free (exec);
-	// ft_freetwo(vr->export);
 }
