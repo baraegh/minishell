@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:31:17 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/07 15:22:06 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/07 17:32:59 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,13 @@ int	lexer_check_quote(t_lexer *lexer)
 char	*lexer_get_value(t_lexer *lexer)
 {
 	char	*value;
+	char	*tmp;
 	char	*s;
 	char	c;
 
 	value = ft_calloc(1, sizeof(char));
-	// if (!value)
-	// 	return
+	if (!value)
+		return (NULL);
 	while (lexer->c != ' ' && lexer->c)
 	{
 		if (lexer->c == '$')
@@ -64,8 +65,8 @@ char	*lexer_get_value(t_lexer *lexer)
 			{
 				lexer_advance(lexer);
 				s = ft_calloc(1, sizeof(char));
-				// if (!s)
-				// 	return
+				if (!s)
+					return (NULL);
 				continue ;
 			}
 			value = ft_strjoin(value, s);
@@ -81,7 +82,9 @@ char	*lexer_get_value(t_lexer *lexer)
 		else if (lexer->c == '"' || lexer->c == '\'')
 		{
 			c = lexer->c;
-			return(ft_strjoin(value, lexer_get_value_skip_quote(lexer, c)));
+			tmp = ft_strjoin(value, lexer_get_value_skip_quote(lexer, c));
+			free(tmp);
+			return(tmp);
 		}
 		else if (lexer->c == '>' || lexer->c == '<'
 			|| lexer->c == '|')
@@ -90,7 +93,6 @@ char	*lexer_get_value(t_lexer *lexer)
 		value = ft_strjoin(value, s);
 		lexer_advance(lexer);
 	}
-	// free(s);
 	return (value);
 }
 
