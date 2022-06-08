@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils01.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barae <barae@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:31:17 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/07 15:22:06 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/08 15:41:25 by barae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ char	*lexer_get_value_skip_quote(t_lexer *lexer, char c)
 	lexer_advance(lexer);
 	while (lexer->c)
 	{
-		if (lexer->c == '$')
+		if (lexer->c == '$' && c == '"')
 		{
 			s = handle_dollar(lexer);
 			if (!s)

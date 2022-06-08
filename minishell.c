@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barae <barae@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 00:17:00 by barae             #+#    #+#             */
-/*   Updated: 2022/06/06 17:14:02 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/08 16:19:38 by barae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,20 @@ void	print_t_cmd(t_cmd *list)
 	printf("##########\n");
 }
 
+int	check_space(char *command)
+{
+	int	i;
+
+	i = 0;
+	while (command[i])
+	{
+		if (command[i] > 32)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char		*command = NULL;
@@ -60,7 +74,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		command = readline("minishell 👻 $ ");
-		if (!command || !*command)
+		if (!command || !*command || !check_space(command))
 			continue ;
 		add_history(command);
 		lexer = init_lexer(command);
