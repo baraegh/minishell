@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 00:17:00 by barae             #+#    #+#             */
-/*   Updated: 2022/06/06 17:14:02 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/08 18:13:24 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,27 @@ int	main(int ac, char **av, char **env)
 		add_history(command);
 		lexer = init_lexer(command);
 		if (!lexer)
+		{
+			printf("Error: from the lexer\n");
 			continue ;
+		}
 		parser = init_parser(lexer);
-		// // if (!parser)
-		// 	// return
+		if (!parser)
+		{
+			printf("Error: from the parser\n");
+			continue ;
+		}
 		list = parser_parse(parser);
 		print_t_cmd(list);
-		free(command);
-		free(lexer);
 		free(parser->current_token);
 		free(parser->previous_token);
 		free(parser);
-		// system("Leaks minishell");
+		free(lexer);
+		free(list->cmd);
+		free(list->file);
+		free(list);
+		free(command);
+		system("Leaks minishell");
 	}
 	return (0);
 }
