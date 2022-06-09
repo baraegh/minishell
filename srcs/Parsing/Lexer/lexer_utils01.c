@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/19 18:31:17 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/05/28 15:02:29 by eel-ghan         ###   ########.fr       */
+/*   Created: 2022/06/08 18:17:32 by eel-ghan          #+#    #+#             */
+/*   Updated: 2022/06/09 14:55:25 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ char	*lexer_get_value(t_lexer *lexer)
 	char	c;
 
 	value = ft_calloc(1, sizeof(char));
-	// if (!value)
-	// 	return
+	if (!value)
+		return (NULL);
 	while (lexer->c != ' ' && lexer->c)
 	{
 		if (lexer->c == '$')
@@ -62,9 +62,10 @@ char	*lexer_get_value(t_lexer *lexer)
 			s = handle_dollar(lexer);
 			if (!s)
 			{
+				lexer_advance(lexer);
 				s = ft_calloc(1, sizeof(char));
-				// if (!s)
-				// 	return
+				if (!s)
+					return (NULL);
 				continue ;
 			}
 			value = ft_strjoin(value, s);
@@ -89,7 +90,6 @@ char	*lexer_get_value(t_lexer *lexer)
 		value = ft_strjoin(value, s);
 		lexer_advance(lexer);
 	}
-	// free(s);
 	return (value);
 }
 
@@ -99,19 +99,24 @@ char	*lexer_get_value_skip_quote(t_lexer *lexer, char c)
 	char	*s;
 
 	value = ft_calloc(1, sizeof(char));
-	// if (!value)
-	// 	return
+	if (!value)
+		return (NULL);
 	lexer_advance(lexer);
 	while (lexer->c)
 	{
-		if (lexer->c == '$')
+		if (lexer->c == '$' && c == '"')
 		{
 			s = handle_dollar(lexer);
 			if (!s)
 			{
+				if (lexer->c == '$')
+				{
+					value = ft_strjoin(value, ft_strdup("$"));
+					lexer_advance(lexer);
+				}
 				s = ft_calloc(1, sizeof(char));
-				// if (!s)
-				// 	return
+				if (!s)
+					return (NULL);
 				continue ;
 			}
 			value = ft_strjoin(value, s);
@@ -137,7 +142,6 @@ char	*lexer_get_value_skip_quote(t_lexer *lexer, char c)
 		value = ft_strjoin(value, s);
 		lexer_advance(lexer);
 	}
-	// free(s);
 	return (value);
 }
 
@@ -148,11 +152,10 @@ char	*lexer_get_value_in_quote(t_lexer *lexer, char c)
 
 	lexer_advance(lexer);
 	if (lexer->c == c)
-		return ("");
-	value = malloc(sizeof(char));
-	// if (!value)
-	// 	return
-	value[0] = '\0';
+		return (ft_strdup(""));
+	value = ft_calloc(1, sizeof(char));
+	if (!value)
+		return (NULL);
 	while (lexer->c != c)
 	{
 		s = lexer_get_char_as_str(lexer);
@@ -161,6 +164,5 @@ char	*lexer_get_value_in_quote(t_lexer *lexer, char c)
 	}
 	if (lexer->c == '"')
 		lexer_advance(lexer);
-	// free(s);
 	return (value);
 }

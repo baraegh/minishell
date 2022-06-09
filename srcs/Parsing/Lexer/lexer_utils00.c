@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:32:53 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/05/30 14:16:07 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/09 14:54:51 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ char	*lexer_get_char_as_str(t_lexer *lexer)
 	char	*str;
 
 	str = malloc(sizeof(char) * 2);
-	// if (!str)
-	// 	return
+	if (!str)
+		return (NULL);
 	str[0] = lexer->c;
 	str[1] = '\0';
 	return (str);
@@ -65,8 +65,6 @@ t_token	*lexer_get_next_token(t_lexer *lexer)
 			return (lexer_collect_out_red(lexer));
 		if (lexer->c == '<')
 			return (lexer_collect_in_red(lexer));
-		// if (lexer->c == '$')
-		// 	return (lexer_handle_dollar(lexer));
 		if (lexer->c == '"' || lexer->c == '\'')
 		{
 			c = lexer->c;
