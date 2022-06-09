@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:17:23 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/09 14:56:33 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/09 15:13:44 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	main(int ac, char **av, char **env)
 		if (!parser)
 			continue ;
 		list = parser_parse(parser);
-		print_t_cmd(list);
 		free(parser->token);
 		free(parser);
 		free(lexer->contents);
