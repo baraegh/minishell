@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:08:16 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/08 10:04:17 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:13:27 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_vr
 
 void	pwd(int fd);
 char	**get_path_splited(char **env);
+char	*ft_checkaccess(char *cmd, char **env);
 void	cd(t_cmd *list);
 void	exec_pipe(t_cmd *list, t_vr *vr);
 t_vr	*fill_env(char **envp);

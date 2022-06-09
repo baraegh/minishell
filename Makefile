@@ -6,7 +6,7 @@
 #    By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by barae             #+#    #+#              #
-#    Updated: 2022/06/07 09:25:32 by ael-bach         ###   ########.fr        #
+#    Updated: 2022/06/09 11:20:35 by ael-bach         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ SRCS =	minishell.c ${LEX_DIR}lexer.c ${LEX_DIR}token.c ${LEX_DIR}lexer_utils00.c
 		${LEX_DIR}dollar_utils.c ${PARS_DIR}parser.c ${PARS_DIR}struct_cmd.c\
 		${PARS_DIR}linked_list_utils.c ${PARS_DIR}parser_utils00.c\
 		./srcs/exec/srcs/exec.c\
+		./srcs/exec/srcs/exec_utls.c\
 		./srcs/exec/srcs/builtins.c\
+		./srcs/exec/srcs/builtins_utls.c\
 		./srcs/exec/srcs/export.c\
 		./srcs/exec/srcs/unset.c\
 		./srcs/exec/srcs/heredoc.c\
