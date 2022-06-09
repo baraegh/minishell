@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 12:14:36 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/04 16:06:33 by ael-bach         ###   ########.fr       */
+/*   Created: 2022/06/01 14:10:56 by ael-bach          #+#    #+#             */
+/*   Updated: 2022/06/05 15:17:07 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// #include "../../../Includes/header.h"
 
-int	ft_strlen(const char *s)
-{
-	int	i;
+// int	cntl_c(int i)
+// {
+// 	rl_re
+// }
 
-	i = 0;
-	if (!s)
-		return (0);
-	while (*(s + i))
-		i++;
-	return (i);
-}
+// void 	sig(void)
+// {
+// 	signal(SIGINT, cntl_c);
+// 	signal(SIGQUIT, SIG_IGN);
+// }

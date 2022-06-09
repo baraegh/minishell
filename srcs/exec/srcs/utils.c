@@ -1,28 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 15:10:08 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/05/30 20:53:36 by ael-bach         ###   ########.fr       */
+/*   Created: 2022/06/07 09:19:28 by ael-bach          #+#    #+#             */
+/*   Updated: 2022/06/07 16:21:43 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../../Includes/header.h"
 
-int	ft_lstsize(t_list *lst)
+void	ft_error(char *msg, int exit_code)
+{
+	printf("%s\n", msg);
+	exitcode = exit_code;
+}
+
+int	ft_lstlen(t_cmd *lst)
 {
 	int		len;
-	t_list	*tmp;
+	t_cmd	*tmp;
 
 	tmp = lst;
 	len = 0;
-	while (tmp != NULL)
+	while (tmp)
 	{
 		len++;
 		tmp = tmp->next;
 	}
 	return (len);
+}
+
+void	duplicate_fd(t_cmd *list, t_exec_p *exec)
+{
+	if (exec->fd[0] != 0)
+		dup2(exec->fd[0], 0);
+	else
+		dup2(exec->fd_in, 0);
+	if (exec->fd[1] != 0)
+		dup2(exec->fd[1], 1);
+	else if (list->next)
+		dup2(exec->p[1], 1);
 }
