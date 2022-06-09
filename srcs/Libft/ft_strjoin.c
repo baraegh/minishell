@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:43:34 by eel-ghan          #+#    #+#             */
-/*   Updated: 2021/11/17 13:06:56 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/07 16:49:38 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*ft_strcat(char *dest, char *src)
 	return (dest);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char		*str;
 	size_t		s1_len;
@@ -45,5 +45,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	*str = '\0';
 	ft_strcat((char *)str, (char *)s1);
 	ft_strcat((char *)str, (char *)s2);
+	free(s2);
+	free(s1);
 	return (str);
 }

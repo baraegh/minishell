@@ -5,47 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/26 00:17:00 by barae             #+#    #+#             */
-/*   Updated: 2022/06/08 18:13:24 by eel-ghan         ###   ########.fr       */
+/*   Created: 2022/06/08 18:17:23 by eel-ghan          #+#    #+#             */
+/*   Updated: 2022/06/09 14:56:33 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "Includes/header.h"
-
-void	print_t_cmd(t_cmd *list)
-{
-	int		j;
-	t_file	*f_head;
-	t_cmd	*head;
-
-	printf("##########\n");
-	head = list;
-	while (head)
-	{
-		if (head != NULL)
-		{
-			printf("cmd: %s\n", head->cmd[0]);
-			if (head->cmd[0] != NULL)
-			{
-				j = 1;
-				while (head->cmd[j])
-				{
-					printf("arg: %s\n", head->cmd[j]);
-					j++;
-				}
-			}
-			f_head = head->file;
-			while (f_head)
-			{
-				printf("red: %s, type: %d\n", f_head->file_name, f_head->type);
-				f_head = f_head->next;
-			}
-		}
-		printf("_________\n");
-		head = head->next;
-	}
-	printf("##########\n");
-}
 
 int	main(int ac, char **av, char **env)
 {
@@ -60,32 +26,26 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		command = readline("minishell 👻 $ ");
-		if (!command || !*command)
+		if (!command || !*command
+			|| !check_space(command))
+		{
+			free(command);
 			continue ;
+		}
 		add_history(command);
 		lexer = init_lexer(command);
 		if (!lexer)
-		{
-			printf("Error: from the lexer\n");
 			continue ;
-		}
 		parser = init_parser(lexer);
 		if (!parser)
-		{
-			printf("Error: from the parser\n");
 			continue ;
-		}
 		list = parser_parse(parser);
 		print_t_cmd(list);
-		free(parser->current_token);
-		free(parser->previous_token);
+		free(parser->token);
 		free(parser);
+		free(lexer->contents);
 		free(lexer);
-		free(list->cmd);
-		free(list->file);
-		free(list);
-		free(command);
-		system("Leaks minishell");
+		free_list(list);
 	}
 	return (0);
 }
