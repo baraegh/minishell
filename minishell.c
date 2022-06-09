@@ -5,47 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/26 00:17:00 by barae             #+#    #+#             */
-/*   Updated: 2022/06/08 12:09:25 by ael-bach         ###   ########.fr       */
+/*   Created: 2022/06/08 18:17:23 by eel-ghan          #+#    #+#             */
+/*   Updated: 2022/06/09 15:13:44 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/header.h"
 
 int	exitcode = 0;
-
-void	print_t_cmd(t_cmd *list)
-{
-	int		j;
-	t_file	*f_head;
-	t_cmd	*head;
-
-	printf("##########\n");
-	head = list;
-	while (head)
-	{
-		if (head!= NULL)
-		{
-			printf("cmd: %s\n", head->cmd[0]);
-			j = 1;
-			while (head->cmd[j])
-			{
-				printf("arg: %s\n", head->cmd[j]);
-				j++;
-			}
-			f_head = head->file;
-			while (f_head)
-			{
-				printf("red: %s, type: %d\n", f_head->file_name, f_head->type);
-				f_head = f_head->next;
-			}
-		}
-		printf("_________\n");
-		head = head->next;
-	}
-	printf("##########\n");
-}
-
 
 int	main(int ac, char **av, char **env)
 {
@@ -60,32 +27,28 @@ int	main(int ac, char **av, char **env)
 	vr = fill_env(env);
 	while (1)
 	{
-		// vr->export = fill_export(vr->env, vr);
-		command = readline("minishell 👾 $ ");
-		if (command == NULL)
+    // vr->export = fill_export(vr->env, vr);
+		command = readline("minishell 👻 $ ");
+		if (!command || !*command
+			|| !check_space(command))
 		{
-			printf("exit");
-			exit(0);
+			free(command);
+			continue ;
 		}
 		add_history(command);
-		// if (!command)
-		// 	continue ;
 		lexer = init_lexer(command);
 		if (!lexer)
 			continue ;
 		parser = init_parser(lexer);
-		// // if (!parser)
-		// 	// return
+		if (!parser)
+			continue ;
 		list = parser_parse(parser);
-		// print_t_cmd(list);
-		exec_pipe(list, vr);
+    exec_pipe(list, vr);
+		free(parser->token);
+		free(parser);
+		free(lexer->contents);
 		free(lexer);
-		// free(token);
-		free(parser->current_token);
-		free(parser->previous_token);
-		free(command);
-		// ft_freetwo(vr->export);
-		// system("Leaks minishell");
+		free_list(list);
 	}
 	return (0);
 }
