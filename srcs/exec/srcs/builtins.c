@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:12:56 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/09 11:26:03 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/10 16:09:19 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	env(char **cmd, t_vr *vr, int fd)
 	i = 1;
 	while (cmd[i])
 	{
-		ft_error("cd : no such file or directory", 127);
+		ft_error("env : no such file or directory", 127);
+		return ;
 		i++;
 	}
 	if (i == 1)
@@ -57,7 +58,7 @@ void	env(char **cmd, t_vr *vr, int fd)
 			}
 		}
 	}
-	exitcode = 0;
+	g_exitcode = 0;
 }
 
 int	exec_builtin(t_cmd *list, t_vr *vr, int fd)
@@ -98,8 +99,8 @@ int	ft_exit_2(t_cmd *list)
 		if (!ft_atoi(list->cmd[i]))
 		{
 			printf("exit\nexit : numeric argument required\n");
-			exitcode = 255;
-			exit (exitcode);
+			g_exitcode = 255;
+			exit (g_exitcode);
 		}
 		else if (ft_atoi(list->cmd[i]) && !list->cmd[i + 1]
 			&& ft_isdigit(list->cmd[i][0]))
@@ -124,7 +125,7 @@ void	ft_exit(t_cmd *list)
 	if (i == 1)
 	{
 		printf("exit\n");
-		exitcode = 0;
-		exit(exitcode);
+		g_exitcode = 0;
+		exit(g_exitcode);
 	}
 }

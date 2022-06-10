@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 11:11:08 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/09 16:58:15 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:13:49 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**get_path_splited(char **envp)
 	env = ft_split(ft_getpath(envp), ':');
 	if (!env)
 	{
-		printf("minishell : No such file or directory\n");
+		ft_error("minishell : No such file or directory", 127);
 		exit (127);
 	}
 	return (env);

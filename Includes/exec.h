@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:08:16 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/09 17:15:36 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/10 16:03:56 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@ typedef struct s_vr
 	int		envlen;
 
 }	t_vr;
+
+typedef struct s_v
+{
+	int			pipe_num;
+	t_cmd		*tmp;
+	int			i;
+	int			status;
+
+}	t_v;
 
 void	pwd(int fd);
 char	**get_path_splited(char **env);

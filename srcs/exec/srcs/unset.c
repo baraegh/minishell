@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:05:54 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/08 11:50:03 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:35:15 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_vr	*unset(char **cmd, t_vr *vr)
 	i = 0;
 	while (cmd[++i])
 		vr->env = unset_ut(cmd[i], vr->env, ft_strlen(cmd[i]));
-	exitcode = 0;
+	g_exitcode = 0;
 	return (vr);
 }
 

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:17:23 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/10 14:49:33 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/10 16:13:17 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/header.h"
-
-int	exitcode = 0;
 
 int	main(int ac, char **av, char **env)
 {
@@ -23,7 +21,7 @@ int	main(int ac, char **av, char **env)
 	t_vr		*vr;
 
 	(void) ac;
-	(void) av;
+	(void) av;	
 	vr = fill_env(env);
 	while (1)
 	{

@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:34:22 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/08 10:16:31 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/10 16:11:50 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	export(t_cmd *list, t_vr *vr, int fd)
 			print_export(vr->env[j], fd);
 			ft_putstr_fd("\n", fd);
 		}
+		g_exitcode = 0;
 	}
 }
 
@@ -82,4 +83,5 @@ void	check_exp_env(char *cmd, t_vr *vr)
 		vr->envlen += 1;
 		vr->env[vr->envlen] = NULL;
 	}
+	g_exitcode = 0;
 }

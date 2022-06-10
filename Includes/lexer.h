@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:15:35 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/10 14:39:31 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:35:15 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct s_lexer
 	int		cmd_flag;
 	int		pipe_flag;
 	t_vr	*vr;
+	int		g_exitcode;
+
 }	t_lexer;
 
 t_lexer	*init_lexer(char *contents, t_vr *vr);

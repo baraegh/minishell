@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 09:19:28 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/07 16:21:43 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/10 16:13:57 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_error(char *msg, int exit_code)
 {
 	printf("%s\n", msg);
-	exitcode = exit_code;
+	g_exitcode = exit_code;
 }
 
 int	ft_lstlen(t_cmd *lst)
