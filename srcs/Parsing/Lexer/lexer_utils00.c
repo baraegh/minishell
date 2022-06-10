@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:32:53 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/09 14:54:51 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/10 14:31:15 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	*lexer_get_char_as_str(t_lexer *lexer)
 
 t_token	*lexer_collect_pipe(t_lexer *lexer)
 {
+	if (!lexer->i)
+		return (init_token(TOKEN_ERROR, PIPE_ERROR));
 	if (lexer_advance(lexer))
 	{
 		if (lexer->c == '|')
@@ -34,8 +36,6 @@ t_token	*lexer_collect_pipe(t_lexer *lexer)
 		if (!lexer->c)
 			return (init_token(TOKEN_ERROR, PIPE_ERROR));
 	}
-	if (lexer->cmd_flag)
-		return (init_token(TOKEN_ERROR, PIPE_ERROR));
 	lexer->cmd_flag = 1;
 	return (init_token(TOKEN_PIPE, "|"));
 }

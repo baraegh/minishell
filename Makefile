@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+         #
+#    By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by eel-ghan          #+#    #+#              #
-#    Updated: 2022/06/09 16:43:10 by ael-bach         ###   ########.fr        #
+#    Updated: 2022/06/10 14:48:46 by eel-ghan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ LEX_DIR = srcs/Parsing/Lexer/
 PARS_DIR = srcs/Parsing/Parser/
 
 SRCS =	minishell.c ${LEX_DIR}lexer.c ${LEX_DIR}token.c ${LEX_DIR}lexer_utils00.c\
-		${LEX_DIR}lexer_utils01.c ${LEX_DIR}redirection_utils.c\
+		${LEX_DIR}lexer_utils01.c ${LEX_DIR}redirection_utils.c ${LEX_DIR}env_utils.c\
 		${LEX_DIR}dollar_utils.c ${PARS_DIR}parser.c ${PARS_DIR}struct_cmd.c\
 		${PARS_DIR}linked_list_utils.c ${PARS_DIR}parser_utils00.c\
 		./srcs/exec/srcs/exec.c\

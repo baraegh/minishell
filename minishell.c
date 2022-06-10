@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:17:23 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/10 14:38:22 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/10 14:49:33 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ int	exitcode = 0;
 
 int	main(int ac, char **av, char **env)
 {
-	char		*command = NULL;
-	t_lexer		*lexer = NULL;
-	t_parser	*parser = NULL;
-	t_cmd		*list = NULL;
+	char		*command;
+	t_lexer		*lexer;
+	t_parser	*parser;
+	t_cmd		*list;
 	t_vr		*vr;
 
 	(void) ac;
@@ -27,6 +27,7 @@ int	main(int ac, char **av, char **env)
 	vr = fill_env(env);
 	while (1)
 	{
+	// vr->export = fill_export(vr->env, vr);
 		command = readline("minishell 👻 $ ");
 		if (!command || !*command
 			|| !check_space(command))
@@ -35,7 +36,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		add_history(command);
-		lexer = init_lexer(command);
+		lexer = init_lexer(command, vr);
 		if (!lexer)
 			continue ;
 		parser = init_parser(lexer);

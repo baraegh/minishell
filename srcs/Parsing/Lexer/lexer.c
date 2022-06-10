@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 13:47:06 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/07 15:49:49 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/09 18:09:58 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/header.h"
 
-t_lexer	*init_lexer(char *contents)
+t_lexer	*init_lexer(char *contents, t_vr *vr)
 {
 	t_lexer	*lexer;
 
@@ -30,6 +30,7 @@ t_lexer	*init_lexer(char *contents)
 		return (NULL);
 	}
 	lexer->cmd_flag = 1;
+	lexer->vr = vr;
 	return (lexer);
 }
 
