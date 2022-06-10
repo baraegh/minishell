@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_cmd.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 13:15:42 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/08 19:11:12 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/09 15:39:34 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ struct s_cmd
 {
 	char	**cmd;
 	t_file	*file;
+	int		pipe_num;
 	t_cmd 	*next;
 };
 

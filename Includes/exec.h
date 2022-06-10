@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:08:16 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/09 11:13:27 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/09 17:15:36 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ typedef struct s_exec_p
 typedef struct s_vr
 {
 	char	**env;
-	char	**export;
 	int		envlen;
-	int		explen;
 
 }	t_vr;
 
