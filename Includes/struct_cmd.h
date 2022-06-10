@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 13:15:42 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/08 19:11:12 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/09 18:01:49 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ struct s_cmd
 {
 	char	**cmd;
 	t_file	*file;
+	int		pipe_num;
 	t_cmd 	*next;
 };
 
