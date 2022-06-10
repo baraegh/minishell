@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:17:23 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/10 16:13:17 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/10 19:57:13 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	main(int ac, char **av, char **env)
 	(void) ac;
 	(void) av;	
 	vr = fill_env(env);
+	g_exitcode = 0;
 	while (1)
 	{
-	// vr->export = fill_export(vr->env, vr);
 		command = readline("minishell 👻 $ ");
 		if (!command || !*command
 			|| !check_space(command))
@@ -34,7 +34,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		add_history(command);
-		lexer = init_lexer(command, vr);
+		lexer = init_lexer(command, vr, g_exitcode);
 		if (!lexer)
 			continue ;
 		parser = init_parser(lexer);
