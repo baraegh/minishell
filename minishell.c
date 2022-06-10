@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:17:23 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/10 14:37:30 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/10 14:49:33 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ int	main(int ac, char **av, char **env)
 		free(parser);
 		free(lexer->contents);
 		free(lexer);
-		// exec_pipe(list, vr);
+    	exec_pipe(list, vr);
 		free_list(list);
+		// system("Leaks minishell");
 	}
 	return (0);
 }
