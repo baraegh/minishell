@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:20:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/09 17:16:37 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/10 16:06:20 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_child(t_cmd *list, t_vr *vr, t_exec_p *exec)
 	if (in_builtin(list))
 	{
 		exec_builtin(list, vr, 1);
-		exit(exitcode);
+		exit(g_exitcode);
 	}
 	if (access(list->cmd[0], X_OK) && !in_builtin(list))
 	{
@@ -76,8 +76,8 @@ void	ft_child(t_cmd *list, t_vr *vr, t_exec_p *exec)
 	{
 		if (execve(list->cmd[0], list->cmd, vr->env) < 0)
 		{
-			ft_error("minishell : command not found", 1);
-			exit (1);
+			ft_error("minishell : command not found", 127);
+			exit (127);
 		}
 	}
 }
@@ -110,24 +110,27 @@ void	exec_pipe_ut(t_cmd *list, t_exec_p *exec, t_vr *vr, int pipe_num)
 void	exec_pipe(t_cmd *list, t_vr *vr)
 {
 	t_exec_p	*exec;
-	int			pipe_num;
-	int			i;
+	t_v			v;
 
 	if (!list)
 		return ;
+	v.tmp = list;
 	exec = malloc(sizeof(t_exec_p));
 	exec->cmdnbr = 0;
-	pipe_num = ft_lstlen(list);
+	v.pipe_num = ft_lstlen(list);
 	exec->fd_in = 0;
 	while (list)
 	{
-		exec_pipe_ut(list, exec, vr, pipe_num);
+		exec_pipe_ut(list, exec, vr, v.pipe_num);
 		list = list->next;
 		exec->cmdnbr++;
 		free(exec->fd);
 	}
-	i = -1;
-	while (++i < pipe_num)
-		waitpid(0, NULL, 0);
+	v.i = -1;
+	while (++v.i < v.pipe_num && !in_builtin(v.tmp))
+	{
+		waitpid(0, &v.status, 0);
+		g_exitcode = WEXITSTATUS(v.status);
+	}
 	free (exec);
 }

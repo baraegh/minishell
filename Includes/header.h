@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 03:51:23 by barae             #+#    #+#             */
-/*   Updated: 2022/06/09 18:35:28 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:35:43 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,5 @@
 # include "parser.h"
 # include "exec.h"
 
-extern int exitcode;
-
+int  g_exitcode;
 #endif
