@@ -6,12 +6,14 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:15:35 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/05/23 17:39:41 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/10 14:39:31 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
+
+typedef struct s_vr t_vr;
 
 typedef struct s_lexer
 {
@@ -20,9 +22,10 @@ typedef struct s_lexer
 	char	*contents;
 	int		cmd_flag;
 	int		pipe_flag;
+	t_vr	*vr;
 }	t_lexer;
 
-t_lexer	*init_lexer(char *contents);
+t_lexer	*init_lexer(char *contents, t_vr *vr);
 int		lexer_advance(t_lexer *lexer);
 int		lexer_back(t_lexer *lexer);
 void	lexer_skip_whitespace(t_lexer *lexer);
@@ -43,5 +46,6 @@ t_token	*handle_append_out_red(t_lexer *lexer);
 t_token	*handle_heredoc_in_red(t_lexer *lexer);
 t_token	*handle_red_with_quote(t_lexer *lexer, char c);
 char	*handle_dollar(t_lexer *lexer);
+char	*get_env(t_vr *vr, char *s);
 
 #endif

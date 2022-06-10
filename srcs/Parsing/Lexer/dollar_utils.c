@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 13:38:05 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/09 14:54:21 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/10 14:41:05 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*handle_dollar(t_lexer *lexer)
 		&& lexer->c != '_')
 		return(get_str2(lexer));
 	s = get_str(lexer);
-	value = ft_strdup(getenv(s));
+	value = get_env(lexer->vr, s);
 	free(s);
 	if (!value)
 	{
