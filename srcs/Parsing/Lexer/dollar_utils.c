@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 13:38:05 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/10 14:41:05 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/10 18:30:25 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*handle_dollar(t_lexer *lexer)
 	if (lexer->c == '?')
 	{
 		lexer_advance(lexer);
-		return(ft_strdup("$?"));
+		return(ft_itoa(lexer->exit_code));
 	}
 	if ((lexer->c < 'a' || lexer->c > 'z')
 		&& (lexer->c < 'A' || lexer->c > 'Z')
