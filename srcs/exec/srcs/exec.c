@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:20:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/09 11:17:52 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/09 17:16:37 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ void	ft_child(t_cmd *list, t_vr *vr, t_exec_p *exec)
 	if (!in_builtin(list))
 	{
 		if (execve(list->cmd[0], list->cmd, vr->env) < 0)
+		{
 			ft_error("minishell : command not found", 1);
+			exit (1);
+		}
 	}
 }
 
@@ -83,7 +86,7 @@ void	exec_pipe_ut(t_cmd *list, t_exec_p *exec, t_vr *vr, int pipe_num)
 {
 	exec->fd = openfile(list);
 	list->pipe_num = pipe_num;
-	if (!list->next && in_builtin(list))
+	if (!list->next && in_builtin(list) && exec->cmdnbr == 0)
 	{
 		if (exec->fd[1] != 0)
 			exec_builtin(list, vr, exec->fd[1]);
@@ -121,7 +124,7 @@ void	exec_pipe(t_cmd *list, t_vr *vr)
 		exec_pipe_ut(list, exec, vr, pipe_num);
 		list = list->next;
 		exec->cmdnbr++;
-		free (exec->fd);
+		free(exec->fd);
 	}
 	i = -1;
 	while (++i < pipe_num)

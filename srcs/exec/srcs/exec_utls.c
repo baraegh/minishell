@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 11:11:08 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/09 11:15:02 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/09 16:58:15 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ char	*ft_checkaccess(char *cmd, char **env)
 	res = 1;
 	while (env[i] && res != 0)
 	{
-		env[i] = ft_strjoin(env[i], "/");
-		check = ft_strjoin(env[i], cmd);
+		env[i] = ft_strjoin1(env[i], "/");
+		check = ft_strjoin1(env[i], cmd);
 		res = access(check, X_OK);
 		i++;
 	}	

@@ -1,0 +1,22 @@
+inishell 👻 $ << lim << lim | wc -l | << lim >a | wc -l | << lim
+minishell: pipe syntax error
+minishell 👻 $ << lim << lim | wc -l | << lim >a | wc -l | << lim
+minishell: pipe syntax error
+minishell 👻 $ << lim
+>sfs
+>fjs
+>lim
+minishell 👻 $ << lim << lim | wc -l | << lim 
+minishell: pipe syntax error
+minishell 👻 $ ls  | wc -l
+       8
+minishell 👻 $ << lim << lim | wc -l 
+minishell: pipe syntax error
+minishell 👻 $ << lim << lim 
+>^D>^D>^D>^D>^D>^D>
+>lim
+minishell 👻 $ << lim << lim
+>lim
+>lim
+minishell 👻 $ << lim << lim 
+minishell 👻 $ 
