@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:12:56 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/11 15:29:11 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/11 17:40:35 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_vr	*fill_env(char **envp)
 		;
 	vr->env = malloc(sizeof(char *) * i);
 	if (!vr->env)
-		ft_error("allocation failde", 1);
+		ft_error("allocation faild\n", 1);
 	i = 0;
 	while (envp[i] != NULL)
 	{
@@ -42,7 +42,7 @@ void	env(char **cmd, t_vr *vr, int fd)
 	i = 1;
 	while (cmd[i])
 	{
-		ft_error("env : no such file or directory", 127);
+		ft_error("env : no such file or directory\n", 127);
 		return ;
 		i++;
 	}
@@ -105,12 +105,12 @@ int	ft_exit_2(t_cmd *list)
 		else if (ft_atoi(list->cmd[i]) && !list->cmd[i + 1]
 			&& ft_isdigit(list->cmd[i][0]))
 		{
-			ft_error("exit", ft_atoi(list->cmd[i]));
+			ft_error("exit\n", ft_atoi(list->cmd[i]));
 			exit (ft_atoi(list->cmd[i]));
 		}
 		else if (ft_atoi(list->cmd[i]) && ft_atoi(list->cmd[i + 1]))
 		{
-			ft_error("exit : too many arguments", 1);
+			ft_error("exit : too many arguments\n", 1);
 			return (-1);
 		}
 	}

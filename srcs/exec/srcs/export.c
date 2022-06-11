@@ -6,11 +6,24 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:34:22 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/11 15:42:55 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/11 18:43:24 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/header.h"
+
+int	check_cmd(char *cmd)
+{
+	int	i;
+
+	i = -1;
+	while (cmd[++i])
+	{
+		if (!ft_isalnum(cmd[i]))
+			return (0);
+	}
+	return (1);
+}
 
 void	print_export(char *s, int fd)
 {
@@ -66,21 +79,25 @@ int	iterate_export(t_vr *vr, char *target)
 
 void	check_exp_env(char *cmd, t_vr *vr)
 {
-	int	l;
+	int		l;
+	char	*word;
 
-	l = iterate_export(vr, unset_word(cmd));
-	if (l > 0 && ft_strnstr(cmd, "=", ft_strlen(cmd)))
+	word = unset_word(cmd);
+	l = iterate_export(vr, word);
+	if (l > 0 && ft_strnstr(cmd, "=", ft_strlen(cmd)) && check_cmd(word))
 	{
 		free(vr->env[l]);
 		vr->env[l] = ft_strdup(cmd);
 	}
-	else if (!ft_isalpha(cmd[0]))
-		ft_error("not a valid identifier", 1);
-	else if ((ft_strnstr(cmd, "=", ft_strlen(cmd)) && ft_isalpha(cmd[0])))
+	else if (ft_strnstr(cmd, "=", ft_strlen(cmd))
+		&& ft_isalpha(cmd[0]) && check_cmd(word))
 	{
 		vr->env[vr->envlen] = ft_strdup(cmd);
 		vr->envlen += 1;
 		vr->env[vr->envlen] = NULL;
 	}
+	else
+		ft_error("not a valid identifier\n", 1);
+	free (word);
 	g_exitcode = 0;
 }
