@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 14:38:21 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/10 14:41:15 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/11 21:53:03 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ char	*get_env(t_vr *vr, char *s)
 	while (i < vr->envlen)
 	{
 		str = ft_split(vr->env[i], '=');
+		if (!str)
+			return (NULL);
 		value = get_env_value(str, s);
 		if (value != NULL)
 			return (value);
