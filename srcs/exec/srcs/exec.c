@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:20:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/10 16:06:20 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/11 14:59:26 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_child(t_cmd *list, t_vr *vr, t_exec_p *exec)
 	if (in_builtin(list))
 	{
 		exec_builtin(list, vr, 1);
-		exit(g_exitcode);
+		exit(0);
 	}
 	if (access(list->cmd[0], X_OK) && !in_builtin(list))
 	{
@@ -125,12 +125,14 @@ void	exec_pipe(t_cmd *list, t_vr *vr)
 		list = list->next;
 		exec->cmdnbr++;
 		free(exec->fd);
+
 	}
-	v.i = -1;
-	while (++v.i < v.pipe_num && !in_builtin(v.tmp))
+	v.i = 0;
+	while (v.i <= v.pipe_num)
 	{
 		waitpid(0, &v.status, 0);
 		g_exitcode = WEXITSTATUS(v.status);
+		v.i++;
 	}
 	free (exec);
 }

@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 11:20:00 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/10 15:35:15 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/10 18:20:55 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	in_builtin(t_cmd *list)
 	char	**arr;
 	int		i;
 
+	if (!list)
+		return (0);
 	str = "echo cd pwd export unset env exit $?\
 	 /bin/pwd /usr/bin/cd /usr/bin/env /bin/echo";
 	arr = ft_split(str, ' ');
