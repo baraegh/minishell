@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 12:07:09 by eel-ghan          #+#    #+#             */
-/*   Updated: 2021/11/16 21:56:19 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/11 15:40:51 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		}
 		i++;
 	}
-	return (0);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:08:16 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/11 11:17:32 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/11 15:29:42 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_vr	*unset(char **cmd, t_vr *vr);
 void	env(char **cmd, t_vr *vr, int fd);
 int		heredoc(char *file_name);
 void	echo(t_cmd *list, int fd);
-int		exec_builtin(t_cmd *list, t_vr *vr, int fd);
+t_vr	*exec_builtin(t_cmd *list, t_vr *vr, int fd);
 char	*ft_getpath(char **envp);
 int		in_builtin(t_cmd *list);
 void	ft_exit(t_cmd *list);

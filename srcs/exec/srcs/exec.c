@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:20:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/11 14:59:26 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/11 15:29:58 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ void	exec_pipe_ut(t_cmd *list, t_exec_p *exec, t_vr *vr, int pipe_num)
 	if (!list->next && in_builtin(list) && exec->cmdnbr == 0)
 	{
 		if (exec->fd[1] != 0)
-			exec_builtin(list, vr, exec->fd[1]);
+			vr = exec_builtin(list, vr, exec->fd[1]);
 		else
-			exec_builtin(list, vr, 1);
+			vr = exec_builtin(list, vr, 1);
 	}
 	else
 	{

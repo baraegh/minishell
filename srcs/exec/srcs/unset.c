@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:05:54 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/10 15:35:15 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/11 15:34:04 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**unset_ut(char *arg, char **target, int len)
 	i = 0;
 	while (target[i++])
 		;
-	str = malloc(sizeof(char *) * i);
+	str = malloc(sizeof(char *) * i + 1);
 	if (!str)
 		ft_error("allocation failde", 1);
 	i = -1;
@@ -78,5 +78,6 @@ char	*unset_word(char *target)
 		str[i] = target[i];
 		i++;
 	}
+	str[i] = '\0';
 	return (str);
 }

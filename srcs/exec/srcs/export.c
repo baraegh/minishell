@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:34:22 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/10 16:11:50 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/11 15:42:55 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,14 @@ void	check_exp_env(char *cmd, t_vr *vr)
 	int	l;
 
 	l = iterate_export(vr, unset_word(cmd));
-	if (l > 0)
+	if (l > 0 && ft_strnstr(cmd, "=", ft_strlen(cmd)))
 	{
 		free(vr->env[l]);
 		vr->env[l] = ft_strdup(cmd);
 	}
 	else if (!ft_isalpha(cmd[0]))
 		ft_error("not a valid identifier", 1);
-	else if ((ft_strnstr(cmd, "=", ft_strlen(cmd)) && !ft_isalpha(cmd[0]))
-		|| ft_isalpha(cmd[0]))
+	else if ((ft_strnstr(cmd, "=", ft_strlen(cmd)) && ft_isalpha(cmd[0])))
 	{
 		vr->env[vr->envlen] = ft_strdup(cmd);
 		vr->envlen += 1;
