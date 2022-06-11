@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:17:23 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/10 19:57:13 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/11 15:30:40 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "Includes/header.h"
 
@@ -26,9 +27,13 @@ int	main(int ac, char **av, char **env)
 	g_exitcode = 0;
 	while (1)
 	{
-		command = readline("minishell 👻 $ ");
-		if (!command || !*command
-			|| !check_space(command))
+		command = readline("minishell $ ");
+		if (!command)
+		{
+			free(command);
+			exit (0) ;
+		}
+		if (!*command || !check_space(command))
 		{
 			free(command);
 			continue ;
@@ -41,11 +46,11 @@ int	main(int ac, char **av, char **env)
 		if (!parser)
 			continue ;
 		list = parser_parse(parser);
+    	exec_pipe(list, vr);
 		free(parser->token);
 		free(parser);
 		free(lexer->contents);
 		free(lexer);
-    	exec_pipe(list, vr);
 		free_list(list);
 		// system("Leaks minishell");
 	}

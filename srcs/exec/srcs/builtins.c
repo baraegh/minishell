@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:12:56 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/10 16:09:19 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/11 15:29:11 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	env(char **cmd, t_vr *vr, int fd)
 	g_exitcode = 0;
 }
 
-int	exec_builtin(t_cmd *list, t_vr *vr, int fd)
+t_vr	*exec_builtin(t_cmd *list, t_vr *vr, int fd)
 {
 	if (list->cmd[0])
 	{
@@ -86,7 +86,7 @@ int	exec_builtin(t_cmd *list, t_vr *vr, int fd)
 		else if (!ft_strncmp(list->cmd[0], "exit", 4))
 			ft_exit(list);
 	}
-	return (0);
+	return (vr);
 }
 
 int	ft_exit_2(t_cmd *list)

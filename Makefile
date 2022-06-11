@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+         #
+#    By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by eel-ghan          #+#    #+#              #
-#    Updated: 2022/06/10 14:48:46 by eel-ghan         ###   ########.fr        #
+#    Updated: 2022/06/11 15:37:10 by ael-bach         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS =	minishell.c ${LEX_DIR}lexer.c ${LEX_DIR}token.c ${LEX_DIR}lexer_utils00.c
 		./srcs/exec/srcs/unset.c\
 		./srcs/exec/srcs/heredoc.c\
 		./srcs/exec/srcs/utils.c\
+		./srcs/exec/srcs/signals.c\
 		
 
 OBJS = ${SRCS:.c=.o}
@@ -36,7 +37,7 @@ OBJS = ${SRCS:.c=.o}
 
 CC = @gcc
 
-CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address 
+CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address 
 
 RM = @rm -f
 
