@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 10:12:26 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/10 16:07:43 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/11 17:38:54 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	heredoc(char *file_name)
 	int		fd[2];
 
 	if (pipe(fd) < 0)
-		ft_error("Permission denied", 1);
+		ft_error("Permission denied\n", 1);
 	rd = readline(">");
 	while (ft_strncmp(rd, file_name, ft_strlen(rd)))
 	{

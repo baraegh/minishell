@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 09:19:28 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/10 16:13:57 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/11 17:01:45 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_error(char *msg, int exit_code)
 {
-	printf("%s\n", msg);
+	ft_putstr_fd(msg, 2);
 	g_exitcode = exit_code;
 }
 
