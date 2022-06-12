@@ -6,59 +6,20 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:20:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/11 18:54:18 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/12 19:55:01 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/header.h"
 
-int	*openfile_ut(t_file *file,	int *fd)
-{
-	if (file->type == 2)
-	{
-		fd[1] = open(file->file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
-		if (fd[1] < 0)
-			ft_error("no permessions\n", 1);
-	}
-	if (file->type == 4)
-	{
-		fd[1] = open(file->file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
-		if (fd[1] < 0)
-			ft_error("no permessions\n", 1);
-	}
-	if (file->type == 3)
-	{
-		fd[0] = open(file->file_name, O_RDONLY, 0644);
-		if (fd[0] < 0)
-			ft_error("no permessions\n", 1);
-	}
-	if (file->type == 5)
-		fd[0] = heredoc(file->file_name);
-	return (fd);
-}
-
-int	*openfile(t_cmd *list)
-{
-	int		*fd;
-	t_cmd	*tmp;
-
-	tmp = list;
-	fd = malloc(sizeof(int) * 2);
-	fd[0] = 0;
-	fd[1] = 0;
-	while (tmp->file)
-	{
-		fd = openfile_ut(tmp->file, fd);
-		tmp->file = tmp->file->next;
-	}
-	return (fd);
-}
-
 void	ft_child(t_cmd *list, t_vr *vr, t_exec_p *exec)
 {
 	char	*cmd;
 	char	*cmderr;
+	int		i;
 
+	if (!list->cmd[0])
+		return ;
 	cmderr = ft_strdup(list->cmd[0]);
 	duplicate_fd(list, exec);
 	if (in_builtin(list))
@@ -72,15 +33,10 @@ void	ft_child(t_cmd *list, t_vr *vr, t_exec_p *exec)
 		ft_strlcpy(list->cmd[0], cmd, (size_t)ft_strlen(cmd) + 1);
 		free (cmd);
 	}
-	close(exec->p[0]);
-	close(exec->p[1]);
-	if (!in_builtin(list))
-		if (execve(list->cmd[0], list->cmd, vr->env) < 0)
-		{
-			ft_error(ft_strjoin1(ft_strjoin1("minishell : ",cmderr)," :command not found\n"), 127);
-			free (cmderr);
-			exit (127);
-		}
+	i = 0;
+	while (i < list->pipe_num * 2)
+		close(exec->p[i++]);
+	ft_execve(list, vr, cmderr);
 }
 
 void	exec_pipe_ut(t_cmd *list, t_exec_p *exec, t_vr *vr, int pipe_num)
@@ -96,15 +52,9 @@ void	exec_pipe_ut(t_cmd *list, t_exec_p *exec, t_vr *vr, int pipe_num)
 	}
 	else
 	{
-		pipe(exec->p);
 		exec->pid = fork();
 		if (exec->pid == 0)
 			ft_child(list, vr, exec);
-		else
-		{
-			close(exec->p[1]);
-			exec->fd_in = exec->p[0];
-		}
 	}
 }
 
@@ -112,7 +62,6 @@ void	exec_pipe(t_cmd *list, t_vr *vr)
 {
 	t_exec_p	*exec;
 	t_v			v;
-	// t_cmd		*tmp = list;
 
 	if (!list)
 		return ;
@@ -120,6 +69,10 @@ void	exec_pipe(t_cmd *list, t_vr *vr)
 	exec = malloc(sizeof(t_exec_p));
 	exec->cmdnbr = 0;
 	v.pipe_num = ft_lstlen(list);
+	exec->p = malloc(sizeof(int) * v.pipe_num * 2);
+	v.i = -1;
+	while (++v.i < v.pipe_num)
+		pipe(exec->p + v.i * 2);
 	exec->fd_in = 0;
 	while (list)
 	{
@@ -129,11 +82,15 @@ void	exec_pipe(t_cmd *list, t_vr *vr)
 		free(exec->fd);
 	}
 	v.i = 0;
-	while (v.i <= v.pipe_num)
+	while (v.i < v.pipe_num * 2)
+		close(exec->p[v.i++]);
+	v.i = 0;
+	while (v.i < v.pipe_num)
 	{
 		waitpid(0, &v.status, 0);
 		g_exitcode = WEXITSTATUS(v.status);
 		v.i++;
 	}
+	free(exec->p);
 	free (exec);
 }

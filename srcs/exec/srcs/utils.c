@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 09:19:28 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/12 10:42:51 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/12 16:13:44 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	duplicate_fd(t_cmd *list, t_exec_p *exec)
 {
 	if (exec->fd[0] != 0)
 		dup2(exec->fd[0], 0);
-	else
-		dup2(exec->fd_in, 0);
+	else if (exec->cmdnbr != 0)
+		dup2(exec->p[(exec->cmdnbr - 1) * 2], 0);
 	if (exec->fd[1] != 0)
 		dup2(exec->fd[1], 1);
 	else if (list->next)
-		dup2(exec->p[1], 1);
+		dup2(exec->p[exec->cmdnbr * 2 + 1], 1);
 }
 
 char	**add_to_export(char **env, char *elmnt)

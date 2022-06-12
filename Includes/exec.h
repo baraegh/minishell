@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:08:16 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/12 10:41:23 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/12 19:21:25 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ typedef struct s_exec_p
 	int		*fd;
 	pid_t	pid;
 	int		cmdnbr;
-	int		p[2];
+	int		*p;
 	int		fd_in;
 	int		fd_heredoc;
 
@@ -36,6 +36,7 @@ typedef struct s_v
 	int			pipe_num;
 	t_cmd		*tmp;
 	int			i;
+	int			j;
 	int			status;
 
 }	t_v;
@@ -65,6 +66,9 @@ char	*unset_word(char *target);
 int		iterate_export(t_vr *vr, char *target);
 void	check_exp_env(char *cmd, t_vr *vr);
 char	**add_to_export(char **env,char *elmnt);
+int		check_cmd(char *cmd);
+int		*openfile(t_cmd *list);
+void    ft_execve(t_cmd *list, t_vr *vr, char *cmderr);
 void 	sig(void);
 
 #endif
