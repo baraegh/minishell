@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 09:19:28 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/11 17:01:45 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/12 10:42:51 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,24 @@ void	duplicate_fd(t_cmd *list, t_exec_p *exec)
 		dup2(exec->fd[1], 1);
 	else if (list->next)
 		dup2(exec->p[1], 1);
+}
+
+char	**add_to_export(char **env, char *elmnt)
+{
+	char	**s_env;
+	int		i;
+
+	i = 0;
+	while (env[i++])
+		;
+	s_env = malloc(sizeof(char *) * i + 1);
+	if (!s_env)
+		ft_error("allocation faild\n", 1);
+	i = -1;
+	while (env[++i])
+		s_env[i] = ft_strdup(env[i]);
+	s_env[i++] = ft_strdup(elmnt);
+	s_env[i] = NULL;
+	ft_freetwo(env);
+	return (s_env);
 }
