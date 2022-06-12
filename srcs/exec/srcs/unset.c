@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:05:54 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/11 18:39:48 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/12 18:29:07 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,38 +30,48 @@ char	**unset_ut(char *arg, char **target, int len)
 {
 	char	**str;
 	char	*word;
-	int		i;
-	int		j;
+	t_v		v;
 
-	i = 0;
-	while (target[i++])
+	v.i = 0;
+	while (target[v.i++])
 		;
-	str = malloc(sizeof(char *) * i + 1);
-	if (!str)
-		ft_error("allocation failde\n", 1);
-	i = -1;
-	j = -1;
-	while (target[++i])
+	str = malloc(sizeof(char *) * v.i + 1);
+	v.i = -1;
+	v.j = -1;
+	while (target[++v.i])
 	{
-		word = unset_word(target[i]);
-		if (ft_strnstr(target[i], arg, len)
+		word = unset_word(target[v.i]);
+		if (ft_strnstr(target[v.i], arg, len)
 			&& !ft_strncmp(arg, word, ft_strlen(word)))
+		{
+			free (word);
 			continue ;
-		str[++j] = ft_strdup(target[i]);
+		}
+		str[++v.j] = ft_strdup(target[v.i]);
 		free (word);
 	}
-	str[j] = NULL;
+	str[++v.j] = NULL;
 	ft_freetwo(target);
 	return (str);
 }
 
 t_vr	*unset(char **cmd, t_vr *vr)
 {
-	int	i;
+	int		i;
+	char	*er_msg;
 
 	i = 0;
 	while (cmd[++i])
+	{
+		if ((!ft_isalpha(cmd[i][0]) || !check_cmd(cmd[i])) && cmd[i][0] != '_')
+		{
+			er_msg = ft_strjoin1(cmd[i], " : not a valid identifier\n");
+			ft_error(er_msg, 1);
+			free (er_msg);
+			return (vr);
+		}
 		vr->env = unset_ut(cmd[i], vr->env, ft_strlen(cmd[i]));
+	}
 	g_exitcode = 0;
 	return (vr);
 }

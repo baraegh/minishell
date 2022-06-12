@@ -21,6 +21,7 @@ SRCS =	minishell.c ${LEX_DIR}lexer.c ${LEX_DIR}token.c ${LEX_DIR}lexer_utils00.c
 		${LEX_DIR}dollar_utils.c ${PARS_DIR}parser.c ${PARS_DIR}struct_cmd.c\
 		${PARS_DIR}linked_list_utils.c ${PARS_DIR}parser_utils00.c\
 		./srcs/exec/srcs/exec.c\
+		./srcs/exec/srcs/exec_part2.c\
 		./srcs/exec/srcs/exec_utls.c\
 		./srcs/exec/srcs/builtins.c\
 		./srcs/exec/srcs/builtins_utls.c\
@@ -37,7 +38,7 @@ OBJS = ${SRCS:.c=.o}
 
 CC = @gcc
 
-CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address 
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 
 RM = @rm -f
 
