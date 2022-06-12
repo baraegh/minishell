@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+         #
+#    By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by eel-ghan          #+#    #+#              #
-#    Updated: 2022/06/12 19:49:42 by ael-bach         ###   ########.fr        #
+#    Updated: 2022/06/12 18:04:08 by eel-ghan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,8 @@ RM = @rm -f
 
 libft = srcs/Libft/libft.a
 
-INCLUDE = -lreadline
+INCLUDE =	-lreadline -L /Users/eel-ghan/homebrew/opt/readline/lib\
+			-I /Users/eel-ghan/homebrew/opt/readline/include
 
 ${NAME} : ${OBJS}
 	@make -C srcs/Libft

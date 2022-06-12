@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:17:23 by eel-ghan          #+#    #+#             */
 /*   Updated: 2022/06/12 18:29:41 by ael-bach         ###   ########.fr       */
@@ -12,6 +12,17 @@
 
 
 #include "Includes/header.h"
+
+void	handle_sigint(int sigint)
+{
+	(void) sigint;
+	g_exitcode = 1;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
 
 int	main(int ac, char **av, char **env)
 {
@@ -22,9 +33,11 @@ int	main(int ac, char **av, char **env)
 	t_vr		*vr;
 
 	(void) ac;
-	(void) av;	
-	vr = fill_env(env);
+	(void) av;
 	g_exitcode = 0;
+	signal(SIGINT, &handle_sigint);
+	signal(SIGQUIT, SIG_IGN);
+	vr = fill_env(env);
 	while (1)
 	{
 		command = readline("minishell $ ");
