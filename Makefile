@@ -6,7 +6,7 @@
 #    By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by eel-ghan          #+#    #+#              #
-#    Updated: 2022/06/11 15:37:10 by ael-bach         ###   ########.fr        #
+#    Updated: 2022/06/12 10:39:33 by ael-bach         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,8 @@ INCLUDE = -lreadline
 
 ${NAME} : ${OBJS}
 	@make -C srcs/Libft
-	${CC} ${libft} -o ${NAME} ${OBJS} ${INCLUDE}
-#	${CC} ${CFLAGS} ${SRCS} ${libft} -o ${NAME} ${INCLUDE}
+#	${CC} ${libft} -o ${NAME} ${OBJS} ${INCLUDE}
+	${CC} ${CFLAGS} ${SRCS} ${libft} -o ${NAME} ${INCLUDE}
 	@tput setaf 2; echo "MINISHELL IS READY"
 
 all : ${NAME}

@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:08:16 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/11 18:53:35 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/12 10:41:23 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	ft_freetwo(char **target);
 char	*unset_word(char *target);
 int		iterate_export(t_vr *vr, char *target);
 void	check_exp_env(char *cmd, t_vr *vr);
+char	**add_to_export(char **env,char *elmnt);
 void 	sig(void);
 
 #endif
