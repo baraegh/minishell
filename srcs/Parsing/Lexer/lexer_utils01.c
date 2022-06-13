@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils01.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barae <barae@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:17:32 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/12 21:51:49 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:53:04 by barae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,46 +50,15 @@ char	*lexer_get_value(t_lexer *lexer)
 {
 	char	*value;
 	char	*s;
-	char	c;
 
 	value = ft_calloc(1, sizeof(char));
 	if (!value)
 		return (NULL);
-	while (lexer->c != ' ' && lexer->c)
-	{
-		if (lexer->c == '$')
-		{
-			s = handle_dollar(lexer);
-			if (!s)
-			{
-				lexer_advance(lexer);
-				s = ft_calloc(1, sizeof(char));
-				if (!s)
-					return (NULL);
-				continue ;
-			}
-			value = ft_strjoin(value, s);
-			if (lexer->c == '$')
-				continue ;
-			if (lexer->c == '>' || lexer->c == '<'
-				|| lexer->c == '|')
-				return (value);
-			if (lexer->c == '"' || lexer->c == '\''
-				|| lexer->c == ' ')
-				continue ;
-		}
-		else if (lexer->c == '"' || lexer->c == '\'')
-		{
-			c = lexer->c;
-			return (ft_strjoin(value, lexer_get_value_skip_quote(lexer, c)));
-		}
-		else if (lexer->c == '>' || lexer->c == '<'
-			|| lexer->c == '|')
-			break ;
-		s = lexer_get_char_as_str(lexer);
-		value = ft_strjoin(value, s);
-		lexer_advance(lexer);
-	}
+	s = ft_calloc(1, sizeof(char));
+	if (!s)
+		return (NULL);
+	value = get_value_util01(lexer, value, s);
+	free(s);
 	return (value);
 }
 
@@ -101,47 +70,12 @@ char	*lexer_get_value_skip_quote(t_lexer *lexer, char c)
 	value = ft_calloc(1, sizeof(char));
 	if (!value)
 		return (NULL);
+	s = ft_calloc(1, sizeof(char));
+	if (!s)
+		return (NULL);
 	lexer_advance(lexer);
-	while (lexer->c)
-	{
-		if (lexer->c == '$' && c == '"')
-		{
-			s = handle_dollar(lexer);
-			if (!s)
-			{
-				if (lexer->c == '$')
-				{
-					value = ft_strjoin(value, ft_strdup("$"));
-					lexer_advance(lexer);
-				}
-				s = ft_calloc(1, sizeof(char));
-				if (!s)
-					return (NULL);
-				continue ;
-			}
-			value = ft_strjoin(value, s);
-			if (lexer->c == '$')
-				continue ;
-			if (lexer->c == '>' || lexer->c == '<'
-				|| lexer->c == '|')
-				return (value);
-			if (lexer->c == '"' || lexer->c == '\''
-				|| lexer->c == ' ')
-				continue ;
-		}
-		if (lexer->c == c)
-		{
-			lexer_advance(lexer);
-			if (lexer->c == ' ' || lexer->c == '|')
-				break ;
-			else if (ft_isprint(lexer->c))
-				return (ft_strjoin(value, lexer_get_value(lexer)));
-			continue ;
-		}
-		s = lexer_get_char_as_str(lexer);
-		value = ft_strjoin(value, s);
-		lexer_advance(lexer);
-	}
+	value = skip_quote(lexer, value, s, c);
+	free(s);
 	return (value);
 }
 

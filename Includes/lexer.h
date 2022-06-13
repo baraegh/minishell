@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: barae <barae@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:15:35 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/12 22:18:33 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:48:11 by barae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,11 @@ t_token	*handle_red_with_quote(t_lexer *lexer, char c);
 char	*get_str(t_lexer *lexer);
 char	*get_str2(t_lexer *lexer);
 char	*get_value_for_dollar(t_lexer *lexer);
+char	*get_value_util00(t_lexer *lexer, char *value, char *s);
+int		get_value_check(t_lexer *lexer);
+char	*get_value_util01(t_lexer *lexer, char *value, char *s);
+char	*skip_quote_utill00(t_lexer *lexer, char *value);
+char	*skip_quote_utill01(t_lexer *lexer, char *value);
+char	*skip_quote(t_lexer *lexer, char *value, char *s, char c);
 
 #endif
