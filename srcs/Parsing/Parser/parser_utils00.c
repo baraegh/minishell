@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 14:40:55 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/09 14:56:37 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/12 22:36:44 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	**add_arg_to_arr(char **arr, char *arg, int len)
 {
 	char	**tmp;
-	int	i;
+	int		i;
 
 	i = 0;
 	tmp = ft_calloc(len, sizeof(char *));
@@ -31,6 +31,17 @@ char	**add_arg_to_arr(char **arr, char *arg, int len)
 	free(arr);
 	free(arg);
 	return (tmp);
+}
+
+void	free_file(t_cmd *list, t_file *f_head)
+{
+	while (list->file)
+	{
+		f_head = list->file->next;
+		free(list->file->file_name);
+		free(list->file);
+		list->file = f_head;
+	}
 }
 
 void	free_list(t_cmd *list)
@@ -50,13 +61,7 @@ void	free_list(t_cmd *list)
 		while (list->cmd[i])
 			free(list->cmd[i++]);
 		free(list->cmd);
-		while (list->file)
-		{
-			f_head = list->file->next;
-			free(list->file->file_name);
-			free(list->file);
-			list->file = f_head;
-		}
+		free_file(list, f_head);
 		free(list);
 		list = head;
 	}

@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:15:35 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/10 19:58:03 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/12 22:18:33 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,12 @@ t_token	*handle_heredoc_in_red(t_lexer *lexer);
 t_token	*handle_red_with_quote(t_lexer *lexer, char c);
 char	*handle_dollar(t_lexer *lexer);
 char	*get_env(t_vr *vr, char *s);
+int		check_char(t_lexer *lexer);
+void	get_here_doc_limit_util(t_lexer *lexer);
+char	*get_limit_value(t_lexer *lexer, char *s, char *value);
+t_token	*handle_red_with_quote(t_lexer *lexer, char c);
+char	*get_str(t_lexer *lexer);
+char	*get_str2(t_lexer *lexer);
+char	*get_value_for_dollar(t_lexer *lexer);
 
 #endif

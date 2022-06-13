@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 17:28:30 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/09 14:56:48 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/12 22:43:15 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,6 @@ void		*parser_handle_error(t_parser *parser, t_cmd *head);
 char		**add_arg_to_arr(char **arr, char *arg, int len);
 void		free_list(t_cmd *list);
 int			check_space(char *command);
+void		*parser_parse_util(t_parser *parser, t_cmd *cmd_list);
+
 #endif

@@ -18,8 +18,9 @@ PARS_DIR = srcs/Parsing/Parser/
 
 SRCS =	minishell.c ${LEX_DIR}lexer.c ${LEX_DIR}token.c ${LEX_DIR}lexer_utils00.c\
 		${LEX_DIR}lexer_utils01.c ${LEX_DIR}redirection_utils.c ${LEX_DIR}env_utils.c\
+		${LEX_DIR}dollar_utils00.c ${LEX_DIR}lexer_utils02.c\
 		${LEX_DIR}dollar_utils.c ${PARS_DIR}parser.c ${PARS_DIR}struct_cmd.c\
-		${PARS_DIR}linked_list_utils.c ${PARS_DIR}parser_utils00.c\
+		${PARS_DIR}linked_list_utils.c ${PARS_DIR}parser_utils00.c ${PARS_DIR}parser_utils01.c\
 		./srcs/exec/srcs/exec.c\
 		./srcs/exec/srcs/exec_part2.c\
 		./srcs/exec/srcs/exec_utls.c\
