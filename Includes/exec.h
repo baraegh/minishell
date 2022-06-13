@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:08:16 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/12 19:21:25 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/13 12:07:45 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_vr
 {
 	char	**env;
 	int		envlen;
+	int		flag;
 
 }	t_vr;
 
@@ -65,10 +66,10 @@ void	ft_freetwo(char **target);
 char	*unset_word(char *target);
 int		iterate_export(t_vr *vr, char *target);
 void	check_exp_env(char *cmd, t_vr *vr);
-char	**add_to_export(char **env,char *elmnt);
+char	**add_to_export(char **env, char *elmnt);
 int		check_cmd(char *cmd);
 int		*openfile(t_cmd *list);
-void    ft_execve(t_cmd *list, t_vr *vr, char *cmderr);
-void 	sig(void);
+void	ft_execve(t_cmd *list, t_vr *vr, char *cmderr);
+void	closepipe_andwait(t_exec_p *exec, t_v *v);
 
 #endif

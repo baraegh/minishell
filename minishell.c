@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:17:23 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/12 18:29:41 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/13 11:51:01 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	main(int ac, char **av, char **env)
 	(void) ac;
 	(void) av;
 	g_exitcode = 0;
+	vr = fill_env(env);
 	signal(SIGINT, &handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
-	vr = fill_env(env);
 	while (1)
 	{
 		command = readline("minishell $ ");
