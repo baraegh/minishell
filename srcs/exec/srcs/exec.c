@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:20:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/12 19:55:01 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/13 12:10:14 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,5 @@ void	exec_pipe(t_cmd *list, t_vr *vr)
 		exec->cmdnbr++;
 		free(exec->fd);
 	}
-	v.i = 0;
-	while (v.i < v.pipe_num * 2)
-		close(exec->p[v.i++]);
-	v.i = 0;
-	while (v.i < v.pipe_num)
-	{
-		waitpid(0, &v.status, 0);
-		g_exitcode = WEXITSTATUS(v.status);
-		v.i++;
-	}
-	free(exec->p);
-	free (exec);
+	closepipe_andwait(exec, &v);
 }

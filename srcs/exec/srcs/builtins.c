@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:12:56 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/11 17:40:35 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/13 12:00:46 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ t_vr	*exec_builtin(t_cmd *list, t_vr *vr, int fd)
 int	ft_exit_2(t_cmd *list)
 {
 	int	i;
+	int	ext;
 
 	i = 0;
 	while (list->cmd[++i])
@@ -102,11 +103,11 @@ int	ft_exit_2(t_cmd *list)
 			g_exitcode = 255;
 			exit (g_exitcode);
 		}
-		else if (ft_atoi(list->cmd[i]) && !list->cmd[i + 1]
-			&& ft_isdigit(list->cmd[i][0]))
+		else if (ft_atoi(list->cmd[i]) && !list->cmd[i + 1])
 		{
+			ext = ft_atoi(list->cmd[i]);
 			ft_error("exit\n", ft_atoi(list->cmd[i]));
-			exit (ft_atoi(list->cmd[i]));
+			exit (ext);
 		}
 		else if (ft_atoi(list->cmd[i]) && ft_atoi(list->cmd[i + 1]))
 		{
