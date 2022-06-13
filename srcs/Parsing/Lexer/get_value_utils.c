@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_value_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barae <barae@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:39:00 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/13 19:52:15 by barae            ###   ########.fr       */
+/*   Updated: 2022/06/13 22:18:33 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ char	*get_value_util01(t_lexer *lexer, char *value, char *s)
 				continue ;
 		}
 		else if (lexer->c == '"' || lexer->c == '\'')
-			return (ft_strjoin(value, lexer_get_value_skip_quote(lexer, lexer->c)));
+			return (ft_strjoin(value,
+					lexer_get_value_skip_quote(lexer, lexer->c)));
 		else if (get_value_check(lexer) == 1)
 			break ;
 		value = get_value_util00(lexer, value, s);

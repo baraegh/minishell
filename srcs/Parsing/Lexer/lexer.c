@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 13:47:06 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/10 19:57:34 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/13 23:49:03 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_lexer	*init_lexer(char *contents, t_vr *vr, int exit_code)
 	lexer->cmd_flag = 1;
 	lexer->vr = vr;
 	lexer->exit_code = exit_code;
+	lexer->flag = 0;
 	return (lexer);
 }
 

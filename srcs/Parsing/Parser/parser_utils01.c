@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 22:00:18 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/12 22:15:45 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/13 23:38:49 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	parser_parse_word(t_parser *parser, t_cmd *head, int *i)
 
 void	parser_parse_redirection(t_parser *parser, t_cmd *head)
 {
+	t_file	*file;
+
 	if (!head->file)
 	{
 		head->file = init_file(parser->token->value,
@@ -36,9 +38,10 @@ void	parser_parse_redirection(t_parser *parser, t_cmd *head)
 	}
 	else
 	{
-		t_file_add_back(&head->file,
-			init_file(parser->token->value,
-				parser->token->type));
+		file = init_file(parser->token->value,
+				parser->token->type);
+		t_file_add_back(&head->file, file);
+		free(file);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barae <barae@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 11:02:03 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/04/26 00:30:24 by barae            ###   ########.fr       */
+/*   Updated: 2022/06/13 22:16:44 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ static int	ft_count_right(char const *s1, char const *set)
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char			*str;
-	int	i;
-	int	j;
-	int	x;
+	char	*str;
+	int		i;
+	int		j;
+	int		x;
 
 	if (!s1 || !set)
 		return (0);

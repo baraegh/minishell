@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skip_quote_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barae <barae@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 19:45:50 by barae             #+#    #+#             */
-/*   Updated: 2022/06/13 19:52:10 by barae            ###   ########.fr       */
+/*   Created: 2022/06/13 19:45:50 by eel-ghan          #+#    #+#             */
+/*   Updated: 2022/06/13 23:49:32 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,35 +26,24 @@ char	*skip_quote_utill01(t_lexer *lexer, char *value)
 	return (value);
 }
 
-char	*skip_quote(t_lexer *lexer, char *value,
-    char *s, char c)
+void	skip_quote02(t_lexer *lexer, char **value)
 {
-	while (lexer->c)
-	{
-		if (lexer->c == '$' && c == '"')
-		{
-			s = handle_dollar(lexer);
-			if (!s)
-			{
-				value = skip_quote_utill01(lexer, value);
-				continue ;
-			}
-			value = ft_strjoin(value, s);
-			if (get_value_check(lexer) == 1)
-				return (value);
-			if (get_value_check(lexer) == 2)
-				continue ;
-		}
-		if (lexer->c == c)
-		{
-			lexer_advance(lexer);
-			if (lexer->c == ' ' || lexer->c == '|')
-				break ;
-			else if (ft_isprint(lexer->c))
-				return (ft_strjoin(value, lexer_get_value(lexer)));
-			continue ;
-		}
-		value = get_value_util00(lexer, value, s); 
-	}
-	return (value);
+	*value = skip_quote_utill01(lexer, *value);
+	lexer->flag = 2;
+}
+
+void	skip_quote03(t_lexer *lexer, char c)
+{
+	if (c == 'r')
+		lexer->flag = 1;
+	else if (c == 'c')
+		lexer->flag = 2;
+	else if (c == 'b')
+		lexer->flag = 3;
+}
+
+void	skip_quote04(t_lexer *lexer, char **value)
+{
+	*value = ft_strjoin(*value, lexer_get_value(lexer));
+	lexer->flag = 1;
 }
