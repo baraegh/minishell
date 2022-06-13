@@ -6,19 +6,19 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:10:56 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/11 11:40:24 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/12 10:47:14 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../Includes/header.h"
+// #include "../../../Includes/header.h"
 
-// int	cntl_c(int i)
+// // int	cntl_c(int i)
+// // {
+// // 	rl_re
+// // }
+
+// void 	sig(void)
 // {
-// 	rl_re
+// 	// signal(SIGINT, cntl_c);
+// 	signal(SIGQUIT, SIG_IGN);
 // }
-
-void 	sig(void)
-{
-	// signal(SIGINT, cntl_c);
-	signal(SIGQUIT, SIG_IGN);
-}

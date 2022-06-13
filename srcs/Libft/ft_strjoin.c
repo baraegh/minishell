@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:43:34 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/09 16:57:40 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/12 14:55:41 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,5 @@ char	*ft_strjoin1(char *s1, char *s2)
 	*str = '\0';
 	ft_strcat((char *)str, (char *)s1);
 	ft_strcat((char *)str, (char *)s2);
-	// free(s2);
-	// free(s1);
 	return (str);
 }

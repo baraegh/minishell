@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 10:38:16 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/11 17:28:45 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/12 19:34:22 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	size_t	i;
 
 	if (!s1)
-		return (-1);
+		return (1);
 	i = 0;
 	if (n == 0)
 		return (0);

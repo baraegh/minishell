@@ -6,7 +6,7 @@
 #    By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by eel-ghan          #+#    #+#              #
-#    Updated: 2022/06/12 22:22:45 by eel-ghan         ###   ########.fr        #
+#    Updated: 2022/06/13 15:02:31 by eel-ghan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS =	minishell.c ${LEX_DIR}lexer.c ${LEX_DIR}token.c ${LEX_DIR}lexer_utils00.c
 		${LEX_DIR}dollar_utils.c ${PARS_DIR}parser.c ${PARS_DIR}struct_cmd.c\
 		${PARS_DIR}linked_list_utils.c ${PARS_DIR}parser_utils00.c ${PARS_DIR}parser_utils01.c\
 		./srcs/exec/srcs/exec.c\
+		./srcs/exec/srcs/exec_part2.c\
 		./srcs/exec/srcs/exec_utls.c\
 		./srcs/exec/srcs/builtins.c\
 		./srcs/exec/srcs/builtins_utls.c\
@@ -38,7 +39,7 @@ OBJS = ${SRCS:.c=.o}
 
 CC = @gcc
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address 
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 
 RM = @rm -f
 
