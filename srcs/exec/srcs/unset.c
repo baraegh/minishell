@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:05:54 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/12 18:29:07 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/13 10:23:10 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	**unset_ut(char *arg, char **target, int len)
 	{
 		word = unset_word(target[v.i]);
 		if (ft_strnstr(target[v.i], arg, len)
-			&& !ft_strncmp(arg, word, ft_strlen(word)))
+			&& !ft_strncmp(arg, word, ft_strlen(word)) && arg[0] != '_')
 		{
 			free (word);
 			continue ;

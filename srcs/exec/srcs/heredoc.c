@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 10:12:26 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/12 19:39:04 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/13 11:51:57 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ int	heredoc(char *file_name)
 		ft_putstr_fd(rd, fd[1]);
 		ft_putstr_fd("\n", fd[1]);
 		rd = readline(">");
+		if (!rd)
+		{
+			close (fd[1]);
+			return (fd[0]);
+		}
 	}
 	close (fd[1]);
 	return (fd[0]);

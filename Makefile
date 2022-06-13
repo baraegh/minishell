@@ -6,7 +6,7 @@
 #    By: barae <barae@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by eel-ghan          #+#    #+#              #
-#    Updated: 2022/06/13 19:50:14 by barae            ###   ########.fr        #
+#    Updated: 2022/06/13 20:09:45 by barae            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS =	minishell.c ${LEX_DIR}lexer.c ${LEX_DIR}token.c ${LEX_DIR}lexer_utils00.c
 		./srcs/exec/srcs/unset.c\
 		./srcs/exec/srcs/heredoc.c\
 		./srcs/exec/srcs/utils.c\
+		./srcs/exec/srcs/utils_2.c\
 		./srcs/exec/srcs/signals.c\
 		
 
@@ -45,13 +46,12 @@ RM = @rm -f
 
 libft = srcs/Libft/libft.a
 
-INCLUDE =	-lreadline -L /Users/eel-ghan/homebrew/opt/readline/lib\
-			-I /Users/eel-ghan/homebrew/opt/readline/include
+INCLUDE = -L /Users/ael-bach/goinfre/homebrew/opt/readline/lib -I /Users/ael-bach/goinfre/homebrew/opt/readline/include
 
-${NAME} : ${OBJS}
+${NAME} : ${SRCS}
 	@make -C srcs/Libft
 #	${CC} ${libft} -o ${NAME} ${OBJS} ${INCLUDE}
-	${CC} ${CFLAGS} ${SRCS} ${libft} -o ${NAME} ${INCLUDE}
+	${CC}  ${CFLAGS} ${SRCS} ${libft} ${INCLUDE} -lreadline -o ${NAME} 
 	@tput setaf 2; echo "MINISHELL IS READY"
 
 all : ${NAME}
