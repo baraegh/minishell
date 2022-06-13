@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:17:32 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/09 14:55:25 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/12 21:51:49 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*lexer_get_value(t_lexer *lexer)
 		else if (lexer->c == '"' || lexer->c == '\'')
 		{
 			c = lexer->c;
-			return(ft_strjoin(value, lexer_get_value_skip_quote(lexer, c)));
+			return (ft_strjoin(value, lexer_get_value_skip_quote(lexer, c)));
 		}
 		else if (lexer->c == '>' || lexer->c == '<'
 			|| lexer->c == '|')

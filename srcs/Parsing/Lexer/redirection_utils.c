@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 17:27:52 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/09 14:29:51 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/12 22:46:15 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_token	*lexer_collect_in_red(t_lexer *lexer)
 
 t_token	*handle_append_out_red(t_lexer *lexer)
 {
-	t_token *token;
+	t_token	*token;
 	char	*s;
 
 	if (lexer_advance(lexer))
@@ -90,12 +90,9 @@ char	*get_here_doc_limit(t_lexer *lexer)
 	char	*value;
 	char	c;
 
+	s = NULL;
 	if (lexer->c == '$')
-	{
-		lexer_advance(lexer);
-		if (lexer->c != '"' && lexer->c != '\'')
-			lexer_back(lexer);
-	}
+		get_here_doc_limit_util(lexer);
 	if (lexer->c == '"' || lexer->c == '\'')
 		c = lexer->c;
 	else
@@ -110,9 +107,7 @@ char	*get_here_doc_limit(t_lexer *lexer)
 			lexer_advance(lexer);
 			continue ;
 		}
-		s = lexer_get_char_as_str(lexer);
-		value = ft_strjoin(value, s);
-		lexer_advance(lexer);
+		value = get_limit_value(lexer, s, value);
 	}
 	return (value);
 }
@@ -140,17 +135,4 @@ t_token	*handle_heredoc_in_red(t_lexer *lexer)
 		return (init_token(TOKEN_INPUT, lexer_get_value(lexer)));
 	}
 	return (NULL);
-}
-
-t_token	*handle_red_with_quote(t_lexer *lexer, char c)
-{
-	char	*value;
-	t_token	*token;
-
-	value = lexer_get_value_in_quote(lexer, c);
-	if (lexer->c == c)
-		lexer_skip_quote(lexer);
-	token = init_token(TOKEN_OUTPUT,
-					ft_strjoin(value, lexer_get_value(lexer)));
-	return (token);
 }
