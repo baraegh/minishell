@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.h                                            :+:      :+:    :+:   */
+/*   echo_utls.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/13 18:48:38 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/14 23:41:57 by ael-bach         ###   ########.fr       */
+/*   Created: 2022/06/14 23:49:54 by ael-bach          #+#    #+#             */
+/*   Updated: 2022/06/14 23:54:05 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#include "../../../Includes/header.h"
 
-typedef struct s_token
+void	print_n_echo(char **cmd, int fd, int i)
 {
-	enum	{
-		TOKEN_CMD,
-		TOKEN_WORD,
-		TOKEN_OUTPUT,
-		TOKEN_INPUT,
-		TOKEN_APPEND,
-		TOKEN_HERE_DOC,
-		TOKEN_PIPE,
-		TOKEN_ERROR
-	}		e_type;
-	char	*value;
-}	t_token;
-
-t_token	*init_token(int type, char *value);
-
-#endif
+	while (cmd[i])
+	{
+		ft_putstr_fd(cmd[i++], fd);
+		if (cmd[i])
+			ft_putchar_fd(' ', fd);
+	}
+}

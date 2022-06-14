@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:08:16 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/14 18:39:48 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 23:54:18 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_v
 {
 	int			pipe_num;
 	t_cmd		*tmp;
+	void		*exec;
 	int			i;
 	int			j;
 	int			status;
@@ -49,8 +50,8 @@ typedef struct s_v
 void	pwd(int fd);
 char	**get_path_splited(char **env);
 char	*ft_checkaccess(char *cmd, char **env);
-void	cd(t_cmd *list);
-void	exec_pipe(t_cmd *list, t_vr *vr);
+void	cd(t_cmd *list, t_vr *vr);
+void	*exec_pipe(t_cmd *list, t_vr *vr);
 t_vr	*fill_env(char **envp);
 void	export(t_cmd *list, t_vr *vr, int fd);
 char	*export_ut(char *envp);
@@ -75,5 +76,6 @@ int		check_cmd(char *cmd);
 int		*openfile(t_cmd *list);
 void	ft_execve(t_cmd *list, t_vr *vr, char *cmderr);
 void	closepipe_andwait(t_exec_p *exec, t_v *v);
+void	print_n_echo(char **cmd, int fd, int i);
 
 #endif
