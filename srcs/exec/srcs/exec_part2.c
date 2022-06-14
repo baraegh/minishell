@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 19:02:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/14 18:56:20 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 22:02:15 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,28 @@ int	*openfile_ut(t_file *file,	int *fd)
 	{
 		fd[1] = open(file->file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
 		if (fd[1] < 0)
+		{
 			ft_error("no permessions\n", 1);
+			return (NULL);
+		}
 	}
 	if (file->type == 4)
 	{
 		fd[1] = open(file->file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
 		if (fd[1] < 0)
+		{
 			ft_error("no permessions\n", 1);
+			return (NULL);
+		}
 	}
 	if (file->type == 3)
 	{
 		fd[0] = open(file->file_name, O_RDONLY, 0644);
 		if (fd[0] < 0)
+		{
 			ft_error("no permessions\n", 1);
+			return (NULL);
+		}
 	}
 	if (file->type == 5 && g_data.exitheredoc != 1)
 		fd[0] = heredoc(file->file_name);
@@ -51,6 +60,8 @@ int	*openfile(t_cmd *list)
 	while (fl)
 	{
 		fd = openfile_ut(fl, fd);
+		if (!fd)
+			return (NULL);
 		fl = fl->next;
 	}
 	return (fd);

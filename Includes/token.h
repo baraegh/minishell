@@ -6,16 +6,17 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 18:48:38 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/14 19:39:06 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 21:49:47 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef TOKEN_H
 # define TOKEN_H
 
 typedef struct s_token
 {
-	enum {
+	enum	{
 		TOKEN_CMD,
 		TOKEN_WORD,
 		TOKEN_OUTPUT,

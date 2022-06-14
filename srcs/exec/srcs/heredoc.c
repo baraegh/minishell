@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 10:12:26 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/14 19:36:35 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 22:23:17 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,9 @@ void	print_echo(char **cmd, int fd)
 void	echo(t_cmd *list, int fd)
 {
 	int	i;
+	int	flag;
 
+	flag = 0;
 	if (!ft_strncmp(list->cmd[1], "-n", 2))
 	{
 		i = 0;
@@ -90,12 +92,16 @@ void	echo(t_cmd *list, int fd)
 		{
 			if (!check_arg(list->cmd[i]))
 			{
+				if (i == 1)
+					flag = 1;
 				while (list->cmd[i])
 				{
 					ft_putstr_fd(list->cmd[i++], fd);
 					if (list->cmd[i])
 						ft_putchar_fd(' ', fd);
 				}
+				if (flag == 1)
+					ft_putstr_fd("\n", fd);
 				return ;
 			}
 		}
