@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 14:38:21 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/11 21:53:03 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/12 21:23:49 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ char	*get_env_value(char **str, char *s)
 	char	*value;
 
 	if (ft_strlen(str[0]) >= ft_strlen(s))
-		{
-			value = get_value(s,  str[0], str);
-			if (value != NULL)
-				return (value);
-		}
+	{
+		value = get_value(s, str[0], str);
+		if (value != NULL)
+			return (value);
+	}
 	else
 	{
-		value = get_value(str[0],  s, str);
+		value = get_value(str[0], s, str);
 		if (value != NULL)
 			return (value);
 	}

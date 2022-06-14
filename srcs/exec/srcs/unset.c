@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:05:54 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/13 10:23:10 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/13 21:28:26 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_vr	*unset(char **cmd, t_vr *vr)
 		}
 		vr->env = unset_ut(cmd[i], vr->env, ft_strlen(cmd[i]));
 	}
-	g_exitcode = 0;
+	g_data.exitcode = 0;
 	return (vr);
 }
 

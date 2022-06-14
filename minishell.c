@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:17:23 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/13 11:51:01 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 15:12:40 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,20 @@
 void	handle_sigint(int sigint)
 {
 	(void) sigint;
-	g_exitcode = 1;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	g_data.exitcode = 1;
+	if (g_data.flag)
+	{
+		g_data.exitheredoc = 1; 
+		printf("\n");
+		close(0);
+	}
+	else
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
 
@@ -34,8 +43,9 @@ int	main(int ac, char **av, char **env)
 
 	(void) ac;
 	(void) av;
-	g_exitcode = 0;
+	g_data.fd  = dup(0);
 	vr = fill_env(env);
+	g_data.exitcode = 0;
 	signal(SIGINT, &handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
@@ -52,14 +62,17 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		add_history(command);
-		lexer = init_lexer(command, vr, g_exitcode);
+		lexer = init_lexer(command, vr, g_data.exitcode);
 		if (!lexer)
 			continue ;
 		parser = init_parser(lexer);
 		if (!parser)
 			continue ;
+		g_data.exitheredoc = 0;
+		g_data.heredoc = 0;
 		list = parser_parse(parser);
     	exec_pipe(list, vr);
+		printf("file: %s\n", list->file->file_name);
 		free(parser->token);
 		free(parser);
 		free(lexer->contents);

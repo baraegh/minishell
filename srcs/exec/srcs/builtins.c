@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:12:56 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/13 12:00:46 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/13 21:28:26 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	env(char **cmd, t_vr *vr, int fd)
 			}
 		}
 	}
-	g_exitcode = 0;
+	g_data.exitcode = 0;
 }
 
 t_vr	*exec_builtin(t_cmd *list, t_vr *vr, int fd)
@@ -100,8 +100,8 @@ int	ft_exit_2(t_cmd *list)
 		if (!ft_atoi(list->cmd[i]))
 		{
 			printf("exit\nexit : numeric argument required\n");
-			g_exitcode = 255;
-			exit (g_exitcode);
+			g_data.exitcode = 255;
+			exit (g_data.exitcode);
 		}
 		else if (ft_atoi(list->cmd[i]) && !list->cmd[i + 1])
 		{
@@ -126,7 +126,7 @@ void	ft_exit(t_cmd *list)
 	if (i == 1)
 	{
 		printf("exit\n");
-		g_exitcode = 0;
-		exit(g_exitcode);
+		g_data.exitcode = 0;
+		exit(g_data.exitcode);
 	}
 }

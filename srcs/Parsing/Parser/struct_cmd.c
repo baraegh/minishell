@@ -6,13 +6,13 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 17:14:53 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/08 18:45:01 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/12 22:15:59 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/header.h"
 
-t_cmd	*init_struct_cmd()
+t_cmd	*init_struct_cmd(void)
 {
 	t_cmd	*cmd_list;
 

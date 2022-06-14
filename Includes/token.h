@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 18:48:38 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/05/30 14:22:00 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/13 23:14:29 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 typedef struct s_token
 {
-	enum token
-	{
+	enum token	{
 		TOKEN_CMD,
 		TOKEN_WORD,
 		TOKEN_OUTPUT,
@@ -24,8 +23,8 @@ typedef struct s_token
 		TOKEN_APPEND,
 		TOKEN_HERE_DOC,
 		TOKEN_PIPE,
-		TOKEN_ERROR,
-	}	type;
+		TOKEN_ERROR
+	}		type;
 	char	*value;
 }	t_token;
 

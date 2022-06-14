@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:32:53 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/10 14:31:15 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/12 21:27:04 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,21 @@ t_token	*lexer_collect_str(t_lexer *lexer)
 	return (init_token(TOKEN_WORD, lexer_get_value(lexer)));
 }
 
-t_token	*lexer_get_next_token(t_lexer *lexer)
+t_token	*lexer_handle_quote(t_lexer *lexer)
 {
 	char	c;
 
+	c = lexer->c;
+	if (!lexer->cmd_flag)
+		return (init_token(TOKEN_WORD,
+				lexer_get_value_skip_quote(lexer, c)));
+	lexer->cmd_flag = 0;
+	return (init_token(TOKEN_CMD,
+			lexer_get_value_skip_quote(lexer, c)));
+}
+
+t_token	*lexer_get_next_token(t_lexer *lexer)
+{
 	while (lexer->c != '\0'
 		&& lexer->i < ft_strlen(lexer->contents))
 	{
@@ -66,13 +77,7 @@ t_token	*lexer_get_next_token(t_lexer *lexer)
 		if (lexer->c == '<')
 			return (lexer_collect_in_red(lexer));
 		if (lexer->c == '"' || lexer->c == '\'')
-		{
-			c = lexer->c;
-			if (!lexer->cmd_flag)
-				return (init_token(TOKEN_WORD, lexer_get_value_skip_quote(lexer, c)));
-			lexer->cmd_flag = 0;
-			return (init_token(TOKEN_CMD, lexer_get_value_skip_quote(lexer, c)));
-		}
+			return (lexer_handle_quote(lexer));
 		if (lexer->c)
 			return (lexer_collect_str(lexer));
 	}
