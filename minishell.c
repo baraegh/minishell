@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:17:23 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/14 21:46:38 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 23:22:42 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main(int ac, char **av, char **env)
 		free(lexer->contents);
 		free(lexer);
 		free_list(list);
-		// system("Leaks minishell");
+		system("Leaks minishell");
 	}
 	return (0);
 }
