@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 22:00:18 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/14 17:25:47 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 19:40:20 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	parser_parse_redirection(t_parser *parser, t_cmd *head)
 	if (!head->file)
 	{
 		head->file = init_file(parser->token->value,
-				parser->token->type);
+				parser->token->e_type);
 	}
 	else
 	{
 		t_file_add_back(&head->file,
 			init_file(parser->token->value,
-				parser->token->type));
+				parser->token->e_type));
 	}
 }
 

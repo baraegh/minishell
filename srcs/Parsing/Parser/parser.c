@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 17:40:21 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/12 22:45:59 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/14 19:40:20 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_parser	*init_parser(t_lexer *lexer)
 
 int	parser_check(t_parser *parser)
 {
-	if (parser->token->type == TOKEN_OUTPUT
-		|| parser->token->type == TOKEN_INPUT
-		|| parser->token->type == TOKEN_APPEND
-		|| parser->token->type == TOKEN_HERE_DOC)
+	if (parser->token->e_type == TOKEN_OUTPUT
+		|| parser->token->e_type == TOKEN_INPUT
+		|| parser->token->e_type == TOKEN_APPEND
+		|| parser->token->e_type == TOKEN_HERE_DOC)
 		return (1);
 	return (0);
 }
@@ -43,15 +43,15 @@ void	*parser_parse_util(t_parser *parser, t_cmd *cmd_list)
 	head = cmd_list;
 	while (parser->token != NULL)
 	{
-		if (parser->token->type == TOKEN_CMD)
+		if (parser->token->e_type == TOKEN_CMD)
 			parser_parse_cmd(parser, head);
-		else if (parser->token->type == TOKEN_WORD)
+		else if (parser->token->e_type == TOKEN_WORD)
 			parser_parse_word(parser, head, &i);
 		else if (parser_check(parser))
 			parser_parse_redirection(parser, head);
-		else if (parser->token->type == TOKEN_PIPE)
+		else if (parser->token->e_type == TOKEN_PIPE)
 			t_cmd_add_back(&cmd_list, parser_parse_pipe(parser, &head));
-		else if (parser->token->type == TOKEN_ERROR)
+		else if (parser->token->e_type == TOKEN_ERROR)
 			return (parser_handle_error(parser, head));
 		free(parser->token);
 		parser->token = lexer_get_next_token(parser->lexer);

@@ -6,11 +6,21 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 10:12:26 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/14 18:40:21 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 19:36:35 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/header.h"
+
+int	heredoc_utls(t_v v)
+{
+	free (v.rd);
+	close (v.fd[1]);
+	g_data.flag = 0;
+	close(0);
+	dup(g_data.fd);
+	return (v.fd[0]);
+}
 
 int	heredoc(char *file_name)
 {
@@ -32,13 +42,10 @@ int	heredoc(char *file_name)
 			break ;
 		ft_putstr_fd(v.rd, v.fd[1]);
 		ft_putstr_fd("\n", v.fd[1]);
+		free(v.rd);
 		v.rd = readline(">");
 	}
-	close (v.fd[1]);
-	g_data.flag = 0;
-	close(0);
-	dup(g_data.fd);
-	return (v.fd[0]);
+	return (heredoc_utls(v));
 }
 
 int	check_arg(char *arg)
