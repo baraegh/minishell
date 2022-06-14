@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:17:23 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/14 15:12:40 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 19:16:10 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	handle_sigint(int sigint)
 		g_data.exitheredoc = 1; 
 		printf("\n");
 		close(0);
+		g_data.flag = 0;
 	}
 	else
 	{
@@ -31,7 +32,6 @@ void	handle_sigint(int sigint)
 		rl_redisplay();
 	}
 }
-
 
 int	main(int ac, char **av, char **env)
 {
@@ -54,7 +54,7 @@ int	main(int ac, char **av, char **env)
 		if (!command)
 		{
 			free(command);
-			exit (0) ;
+			exit (130) ;
 		}
 		if (!*command || !check_space(command))
 		{
@@ -72,13 +72,12 @@ int	main(int ac, char **av, char **env)
 		g_data.heredoc = 0;
 		list = parser_parse(parser);
     	exec_pipe(list, vr);
-		printf("file: %s\n", list->file->file_name);
 		free(parser->token);
 		free(parser);
 		free(lexer->contents);
 		free(lexer);
 		free_list(list);
-		// system("Leaks minishell");
+		system("Leaks minishell");
 	}
 	return (0);
 }

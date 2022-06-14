@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:20:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/14 15:08:34 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 19:11:29 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_child(t_cmd *list, t_vr *vr, t_exec_p *exec)
 	char	*cmderr;
 	int		i;
 
+	signal(SIGQUIT, SIG_DFL);
 	if (!list->cmd[0])
 		return ;
 	cmderr = ft_strdup(list->cmd[0]);
@@ -30,7 +31,8 @@ void	ft_child(t_cmd *list, t_vr *vr, t_exec_p *exec)
 	if (access(list->cmd[0], X_OK) && !in_builtin(list))
 	{
 		cmd = ft_checkaccess(list->cmd[0], get_path_splited(vr->env));
-		ft_strlcpy(list->cmd[0], cmd, (size_t)ft_strlen(cmd) + 1);
+		free (list->cmd[0]);
+		list->cmd[0] = ft_strdup(cmd);
 		free (cmd);
 	}
 	i = 0;
@@ -50,7 +52,7 @@ void	exec_pipe_ut(t_cmd *list, t_exec_p *exec, t_vr *vr, int pipe_num)
 		else
 			vr = exec_builtin(list, vr, 1);
 	}
-	else if (list->cmd[0])
+	else if (list->cmd[0] && !g_data.exitheredoc)
 	{
 		exec->pid = fork();
 		if (exec->pid == 0)

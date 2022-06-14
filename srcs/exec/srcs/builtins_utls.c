@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 11:20:00 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/13 21:28:26 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 18:57:12 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	in_builtin(t_cmd *list)
 	 /bin/pwd /usr/bin/cd /usr/bin/env /bin/echo";
 	arr = ft_split(str, ' ');
 	i = -1;
-	while (++i < 12)
+	while (arr[++i])
 	{
 		if (ft_strlen(arr[i]) > ft_strlen(list->cmd[0]))
 			len = ft_strlen(arr[i]);

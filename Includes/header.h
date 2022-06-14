@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 03:51:23 by barae             #+#    #+#             */
-/*   Updated: 2022/06/14 15:27:22 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 17:52:53 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_data
     int heredoc;
     int fd;
     int exitheredoc;
+    int quit_flag;
 
 }   t_data;
 
