@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+         #
+#    By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by eel-ghan          #+#    #+#              #
-#    Updated: 2022/06/14 17:29:44 by ael-bach         ###   ########.fr        #
+#    Updated: 2022/06/14 22:19:57 by eel-ghan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,17 +41,16 @@ OBJS = ${SRCS:.c=.o}
 
 CC = @gcc
 
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror
 
 RM = @rm -f
 
 libft = srcs/Libft/libft.a
 
-INCLUDE = -L /Users/ael-bach/Desktop/homebrew/opt/readline/lib -I /Users/ael-bach/Desktop/homebrew/opt/readline/include
+INCLUDE = -L /Users/eel-ghan/homebrew/opt/readline/lib -I /Users/eel-ghan/homebrew/opt/readline/include
 
 ${NAME} : ${SRCS}
 	@make -C srcs/Libft
-#	${CC} ${libft} -o ${NAME} ${OBJS} ${INCLUDE}
 	${CC}  ${CFLAGS} ${SRCS} ${libft} ${INCLUDE} -lreadline -o ${NAME} 
 	@tput setaf 2; echo "MINISHELL IS READY"
 
