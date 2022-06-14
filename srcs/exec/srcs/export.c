@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:34:22 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/12 10:42:31 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/13 21:28:26 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	export(t_cmd *list, t_vr *vr, int fd)
 			print_export(vr->env[j], fd);
 			ft_putstr_fd("\n", fd);
 		}
-		g_exitcode = 0;
+		g_data.exitcode = 0;
 	}
 }
 
@@ -98,5 +98,5 @@ void	check_exp_env(char *cmd, t_vr *vr)
 	else if (!ft_isalpha(cmd[0]) || !check_cmd(word))
 		ft_error("not a valid identifier\n", 1);
 	free (word);
-	g_exitcode = 0;
+	g_data.exitcode = 0;
 }

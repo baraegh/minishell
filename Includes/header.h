@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 03:51:23 by barae             #+#    #+#             */
-/*   Updated: 2022/06/13 22:05:59 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/14 15:27:22 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,17 @@
 # include "parser.h"
 # include "exec.h"
 
-int	g_exitcode;
+
+typedef struct s_data
+{
+    int exitcode;
+    int flag;
+    int heredoc;
+    int fd;
+    int exitheredoc;
+
+}   t_data;
+
+t_data  g_data;
 
 #endif

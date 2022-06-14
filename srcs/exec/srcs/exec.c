@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:20:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/13 12:10:14 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 15:08:34 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	exec_pipe_ut(t_cmd *list, t_exec_p *exec, t_vr *vr, int pipe_num)
 		else
 			vr = exec_builtin(list, vr, 1);
 	}
-	else
+	else if (list->cmd[0])
 	{
 		exec->pid = fork();
 		if (exec->pid == 0)

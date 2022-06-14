@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 10:12:26 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/13 11:51:57 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 15:00:48 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,31 @@
 int	heredoc(char *file_name)
 {
 	char	*rd;
+	int		len;
 	int		fd[2];
 
+	g_data.flag = 1; 
 	if (pipe(fd) < 0)
 		ft_error("Permission denied\n", 1);
 	rd = readline(">");
-	while (ft_strncmp(rd, file_name, ft_strlen(rd)))
+	while (1)
 	{
+		if (!rd)
+			break;
+		if (ft_strlen(file_name) > ft_strlen(rd))
+			len = ft_strlen(file_name);
+		else
+			len = ft_strlen(rd);
+		if (!ft_strncmp(rd, file_name, len))
+			break ;
 		ft_putstr_fd(rd, fd[1]);
 		ft_putstr_fd("\n", fd[1]);
 		rd = readline(">");
-		if (!rd)
-		{
-			close (fd[1]);
-			return (fd[0]);
-		}
 	}
 	close (fd[1]);
+	g_data.flag = 0;
+	close(0);
+	dup(g_data.fd);
 	return (fd[0]);
 }
 
@@ -89,5 +97,5 @@ void	echo(t_cmd *list, int fd)
 	}
 	else
 		print_echo(list->cmd, fd);
-	g_exitcode = 0;
+	g_data.exitcode = 0;
 }

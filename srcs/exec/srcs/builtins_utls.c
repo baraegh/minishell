@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 11:20:00 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/12 19:36:24 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/13 21:28:26 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	cd(t_cmd *list)
 		ft_error("cd : no such file or directory\n", 1);
 		return ;
 	}
-	g_exitcode = 0;
+	g_data.exitcode = 0;
 }
 
 void	pwd(int fd)
@@ -40,7 +40,7 @@ void	pwd(int fd)
 	{
 		ft_putstr_fd(cwd, fd);
 		ft_putstr_fd("\n", fd);
-		g_exitcode = 0;
+		g_data.exitcode = 0;
 	}
 }
 
