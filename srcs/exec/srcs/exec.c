@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:20:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/14 22:07:45 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/15 00:28:39 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ void	*exec_pipe(t_cmd *list, t_vr *vr)
 	exec->fd_in = 0;
 	while (list)
 	{
-		if (!exec_pipe_ut(list, exec, vr, v.pipe_num))
-			return (NULL);
+		exec_pipe_ut(list, exec, vr, v.pipe_num);
 		list = list->next;
 		exec->cmdnbr++;
 		free(exec->fd);
