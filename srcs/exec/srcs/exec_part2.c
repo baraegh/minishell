@@ -6,20 +6,20 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 19:02:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/14 22:02:15 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 23:48:11 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/header.h"
 
-int	*openfile_ut(t_file *file,	int *fd)
+int	*out_file(t_file *file,	int *fd)
 {
 	if (file->type == 2)
 	{
 		fd[1] = open(file->file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
 		if (fd[1] < 0)
 		{
-			ft_error("no permessions\n", 1);
+			ft_error("minishell: No such file or directory\n", 2);
 			return (NULL);
 		}
 	}
@@ -28,16 +28,22 @@ int	*openfile_ut(t_file *file,	int *fd)
 		fd[1] = open(file->file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
 		if (fd[1] < 0)
 		{
-			ft_error("no permessions\n", 1);
+			ft_error("minishell: No such file or directory\n", 2);
 			return (NULL);
 		}
 	}
+	return (fd);
+}
+
+int	*openfile_ut(t_file *file,	int *fd)
+{
+	fd = out_file(file, fd);
 	if (file->type == 3)
 	{
 		fd[0] = open(file->file_name, O_RDONLY, 0644);
 		if (fd[0] < 0)
 		{
-			ft_error("no permessions\n", 1);
+			ft_error("minishell: No such file or directory\n", 2);
 			return (NULL);
 		}
 	}

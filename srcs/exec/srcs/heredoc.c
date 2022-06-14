@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 10:12:26 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/14 22:23:17 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 23:53:31 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,7 @@ void	echo(t_cmd *list, int fd)
 			{
 				if (i == 1)
 					flag = 1;
-				while (list->cmd[i])
-				{
-					ft_putstr_fd(list->cmd[i++], fd);
-					if (list->cmd[i])
-						ft_putchar_fd(' ', fd);
-				}
+				print_n_echo(list->cmd, fd, i);
 				if (flag == 1)
 					ft_putstr_fd("\n", fd);
 				return ;
