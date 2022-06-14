@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:17:23 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/14 23:19:20 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/14 23:42:42 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	main(int ac, char **av, char **env)
 	(void) av;
 	vr = init_vr(env);
 	while (1)
-	{ 
+	{
 		command = readline("minishell $ ");
 		lexer = get_lexer(command, vr);
 		if (!lexer)
@@ -95,7 +95,6 @@ int	main(int ac, char **av, char **env)
 		list = parser_parse(parser);
 		exec_pipe(list, vr);
 		free_util(parser, lexer, list);
-		system("Leaks minishell");
 	}
 	return (0);
 }

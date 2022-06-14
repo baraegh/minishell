@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:20:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/14 19:11:29 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 22:07:45 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ void	ft_child(t_cmd *list, t_vr *vr, t_exec_p *exec)
 	ft_execve(list, vr, cmderr);
 }
 
-void	exec_pipe_ut(t_cmd *list, t_exec_p *exec, t_vr *vr, int pipe_num)
+void	*exec_pipe_ut(t_cmd *list, t_exec_p *exec, t_vr *vr, int pipe_num)
 {
 	exec->fd = openfile(list);
+	if (!exec->fd)
+		return (NULL);
 	list->pipe_num = pipe_num;
 	if (!list->next && in_builtin(list) && exec->cmdnbr == 0)
 	{
@@ -58,15 +60,16 @@ void	exec_pipe_ut(t_cmd *list, t_exec_p *exec, t_vr *vr, int pipe_num)
 		if (exec->pid == 0)
 			ft_child(list, vr, exec);
 	}
+	return ("OK");
 }
 
-void	exec_pipe(t_cmd *list, t_vr *vr)
+void	*exec_pipe(t_cmd *list, t_vr *vr)
 {
 	t_exec_p	*exec;
 	t_v			v;
 
 	if (!list)
-		return ;
+		return (NULL);
 	v.tmp = list;
 	exec = malloc(sizeof(t_exec_p));
 	exec->cmdnbr = 0;
@@ -78,10 +81,12 @@ void	exec_pipe(t_cmd *list, t_vr *vr)
 	exec->fd_in = 0;
 	while (list)
 	{
-		exec_pipe_ut(list, exec, vr, v.pipe_num);
+		if (!exec_pipe_ut(list, exec, vr, v.pipe_num))
+			return (NULL);
 		list = list->next;
 		exec->cmdnbr++;
 		free(exec->fd);
 	}
 	closepipe_andwait(exec, &v);
+	return (NULL);
 }
