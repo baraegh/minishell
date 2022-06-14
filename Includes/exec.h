@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:08:16 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/13 12:07:45 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 18:39:48 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ typedef struct s_v
 	int			i;
 	int			j;
 	int			status;
+	int			len;
+	char		*rd;
+	int			len_h;
+	int			fd[2];
 
 }	t_v;
 

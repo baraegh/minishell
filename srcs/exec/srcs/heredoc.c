@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 10:12:26 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/14 15:00:48 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 18:40:21 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,31 @@
 
 int	heredoc(char *file_name)
 {
-	char	*rd;
-	int		len;
-	int		fd[2];
+	t_v	v;
 
-	g_data.flag = 1; 
-	if (pipe(fd) < 0)
+	g_data.flag = 1;
+	if (pipe(v.fd) < 0)
 		ft_error("Permission denied\n", 1);
-	rd = readline(">");
+	v.rd = readline(">");
 	while (1)
 	{
-		if (!rd)
-			break;
-		if (ft_strlen(file_name) > ft_strlen(rd))
-			len = ft_strlen(file_name);
-		else
-			len = ft_strlen(rd);
-		if (!ft_strncmp(rd, file_name, len))
+		if (!v.rd)
 			break ;
-		ft_putstr_fd(rd, fd[1]);
-		ft_putstr_fd("\n", fd[1]);
-		rd = readline(">");
+		if (ft_strlen(file_name) > ft_strlen(v.rd))
+			v.len_h = ft_strlen(file_name);
+		else
+			v.len_h = ft_strlen(v.rd);
+		if (!ft_strncmp(v.rd, file_name, v.len_h))
+			break ;
+		ft_putstr_fd(v.rd, v.fd[1]);
+		ft_putstr_fd("\n", v.fd[1]);
+		v.rd = readline(">");
 	}
-	close (fd[1]);
+	close (v.fd[1]);
 	g_data.flag = 0;
 	close(0);
 	dup(g_data.fd);
-	return (fd[0]);
+	return (v.fd[0]);
 }
 
 int	check_arg(char *arg)
