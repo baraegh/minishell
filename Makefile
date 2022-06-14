@@ -6,7 +6,7 @@
 #    By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by eel-ghan          #+#    #+#              #
-#    Updated: 2022/06/14 17:29:44 by ael-bach         ###   ########.fr        #
+#    Updated: 2022/06/14 23:31:52 by ael-bach         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ OBJS = ${SRCS:.c=.o}
 
 CC = @gcc
 
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror
 
 RM = @rm -f
 
@@ -51,7 +51,6 @@ INCLUDE = -L /Users/ael-bach/Desktop/homebrew/opt/readline/lib -I /Users/ael-bac
 
 ${NAME} : ${SRCS}
 	@make -C srcs/Libft
-#	${CC} ${libft} -o ${NAME} ${OBJS} ${INCLUDE}
 	${CC}  ${CFLAGS} ${SRCS} ${libft} ${INCLUDE} -lreadline -o ${NAME} 
 	@tput setaf 2; echo "MINISHELL IS READY"
 

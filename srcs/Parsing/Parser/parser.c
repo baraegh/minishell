@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 17:40:21 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/14 21:50:35 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/14 23:30:57 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ t_cmd	*parser_parse(t_parser *parser)
 {
 	t_cmd	*cmd_list;
 
+	g_data.exitheredoc = 0;
+	g_data.heredoc = 0;
 	if (parser->token == NULL)
 		return (NULL);
 	cmd_list = init_struct_cmd();
