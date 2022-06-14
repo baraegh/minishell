@@ -6,7 +6,7 @@
 #    By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by eel-ghan          #+#    #+#              #
-#    Updated: 2022/06/13 12:05:52 by ael-bach         ###   ########.fr        #
+#    Updated: 2022/06/14 14:20:52 by ael-bach         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ RM = @rm -f
 
 libft = srcs/Libft/libft.a
 
-INCLUDE = -L /Users/ael-bach/goinfre/homebrew/opt/readline/lib -I /Users/ael-bach/goinfre/homebrew/opt/readline/include
+INCLUDE = -L /Users/ael-bach/Desktop/homebrew/opt/readline/lib -I /Users/ael-bach/Desktop/homebrew/opt/readline/include
 
 ${NAME} : ${SRCS}
 	@make -C srcs/Libft
