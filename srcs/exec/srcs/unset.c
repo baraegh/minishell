@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:05:54 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/13 21:28:26 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/15 01:34:11 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_vr	*unset(char **cmd, t_vr *vr)
 			er_msg = ft_strjoin1(cmd[i], " : not a valid identifier\n");
 			ft_error(er_msg, 1);
 			free (er_msg);
-			return (vr);
+			// return (vr);
 		}
 		vr->env = unset_ut(cmd[i], vr->env, ft_strlen(cmd[i]));
 	}
