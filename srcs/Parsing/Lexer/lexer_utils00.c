@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 18:32:53 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/14 19:59:24 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/15 01:13:48 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ t_token	*lexer_handle_quote(t_lexer *lexer)
 
 t_token	*lexer_get_next_token(t_lexer *lexer)
 {
+	lexer->flag = 0;
 	while (lexer->c != '\0'
 		&& lexer->i < ft_strlen(lexer->contents))
 	{

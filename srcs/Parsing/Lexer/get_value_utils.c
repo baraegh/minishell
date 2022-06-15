@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:39:00 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/14 20:45:00 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/15 00:42:30 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@ char	*get_value_util00(t_lexer *lexer, char *value, char *s)
 
 int	get_value_check(t_lexer *lexer)
 {
+	int	i;
+
+	i = lexer->i + 1;
+	if (lexer->c == '\'')
+	{
+		while (lexer->contents[i])
+		{
+			if (lexer->contents[i] == '\'')
+				return (2);
+			i++;
+		}
+	}
 	if (lexer->c == '>' || lexer->c == '<'
 		|| lexer->c == '|')
 		return (1);
