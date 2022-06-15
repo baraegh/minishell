@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 17:27:52 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/12 22:46:15 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/15 01:49:19 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_token	*lexer_collect_out_red(t_lexer *lexer)
 	t_token	*token;
 
 	if (!lexer_advance(lexer))
-		return (init_token(TOKEN_ERROR, REDIRECTION_ERROR));
+		return (init_token(TOKEN_RD_ERROR, REDIRECTION_ERROR));
 	if (lexer->c == '>')
 	{
 		token = handle_append_out_red(lexer);
@@ -25,12 +25,12 @@ t_token	*lexer_collect_out_red(t_lexer *lexer)
 			return (token);
 	}
 	else if (lexer->c == '<')
-		return (init_token(TOKEN_ERROR, REDIRECTION_ERROR));
+		return (init_token(TOKEN_RD_ERROR, REDIRECTION_ERROR));
 	else if (lexer->c == '"' || lexer->c == '\'')
 		return (handle_red_with_quote(lexer, lexer->c));
 	lexer_skip_whitespace(lexer);
 	if (!lexer->c)
-		return (init_token(TOKEN_ERROR, REDIRECTION_ERROR));
+		return (init_token(TOKEN_RD_ERROR, REDIRECTION_ERROR));
 	return (init_token(TOKEN_OUTPUT, lexer_get_value(lexer)));
 }
 
@@ -39,7 +39,7 @@ t_token	*lexer_collect_in_red(t_lexer *lexer)
 	t_token	*token;
 
 	if (!lexer_advance(lexer))
-		return (init_token(TOKEN_ERROR, REDIRECTION_ERROR));
+		return (init_token(TOKEN_RD_ERROR, REDIRECTION_ERROR));
 	if (lexer->c == '<')
 	{
 		token = handle_heredoc_in_red(lexer);
@@ -47,12 +47,12 @@ t_token	*lexer_collect_in_red(t_lexer *lexer)
 			return (token);
 	}
 	else if (lexer->c == '>')
-		return (init_token(TOKEN_ERROR, REDIRECTION_ERROR));
+		return (init_token(TOKEN_RD_ERROR, REDIRECTION_ERROR));
 	else if (lexer->c == '"' || lexer->c == '\'')
 		return (handle_red_with_quote(lexer, lexer->c));
 	lexer_skip_whitespace(lexer);
 	if (!lexer->c)
-		return (init_token(TOKEN_ERROR, REDIRECTION_ERROR));
+		return (init_token(TOKEN_RD_ERROR, REDIRECTION_ERROR));
 	return (init_token(TOKEN_INPUT, lexer_get_value(lexer)));
 }
 
@@ -64,12 +64,12 @@ t_token	*handle_append_out_red(t_lexer *lexer)
 	if (lexer_advance(lexer))
 	{
 		if (lexer->c == '>' || lexer->c == '<')
-			return (init_token(TOKEN_ERROR, REDIRECTION_ERROR));
+			return (init_token(TOKEN_RD_ERROR, REDIRECTION_ERROR));
 		else
 		{
 			lexer_skip_whitespace(lexer);
 			if (!lexer->c || lexer->c == '|')
-				return (init_token(TOKEN_ERROR, REDIRECTION_ERROR));
+				return (init_token(TOKEN_RD_ERROR, REDIRECTION_ERROR));
 			token = lexer_get_next_token(lexer);
 			s = token->value;
 			free(token);
@@ -119,12 +119,12 @@ t_token	*handle_heredoc_in_red(t_lexer *lexer)
 	if (lexer_advance(lexer))
 	{
 		if (lexer->c == '>' || lexer->c == '<')
-			return (init_token(TOKEN_ERROR, REDIRECTION_ERROR));
+			return (init_token(TOKEN_RD_ERROR, REDIRECTION_ERROR));
 		else
 		{
 			lexer_skip_whitespace(lexer);
 			if (!lexer->c || lexer->c == '|')
-				return (init_token(TOKEN_ERROR, REDIRECTION_ERROR));
+				return (init_token(TOKEN_RD_ERROR, REDIRECTION_ERROR));
 			limit = get_here_doc_limit(lexer);
 			return (init_token(TOKEN_HERE_DOC, limit));
 		}

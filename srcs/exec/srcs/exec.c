@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:20:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/15 00:28:39 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/15 18:36:52 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	*exec_pipe_ut(t_cmd *list, t_exec_p *exec, t_vr *vr, int pipe_num)
 		else
 			vr = exec_builtin(list, vr, 1);
 	}
-	else if (list->cmd[0] && !g_data.exitheredoc)
+	else if (list->cmd[0] && !g_data.exitheredoc && !g_data.rd_error)
 	{
 		exec->pid = fork();
 		if (exec->pid == 0)

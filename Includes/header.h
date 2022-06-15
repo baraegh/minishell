@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 23:32:40 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/14 23:32:48 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/15 18:33:07 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_data
 	int	fd;
 	int	exitheredoc;
 	int	quit_flag;
+	int	here_doc_flag;
+	int	rd_error;
 
 }	t_data;
 
