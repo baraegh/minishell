@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:46:40 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/15 18:49:18 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/15 19:47:55 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,25 @@ void	parser_handle_here_dog(t_parser *parser, t_cmd *head)
 	g_data.rd_error = 1;
 }
 
-void	parser_parse_util00(t_parser *parser, t_cmd *cmd_list, int *i)
+int	handle_hd_error(t_parser *parser, t_cmd *head)
 {
-	t_cmd	*head;
+	g_data.exitcode = 258;
+	if (parser->token->e_type == TOKEN_RD_ERROR
+		&& g_data.here_doc_flag == 1)
+	{
+		parser_handle_here_dog(parser, head);
+		return (1);
+	}
+	return (0);
+}
 
-	head = cmd_list;
-	if (parser->token->e_type == TOKEN_CMD)
-		parser_parse_cmd(parser, head);
-	else if (parser->token->e_type == TOKEN_WORD)
-		parser_parse_word(parser, head, i);
-	else if (parser_check(parser))
-		parser_parse_redirection(parser, head);
-	else if (parser->token->e_type == TOKEN_PIPE)
-		t_cmd_add_back(&cmd_list, parser_parse_pipe(parser, &head));
+int	handle_rd_error(t_parser *parser)
+{
+	g_data.exitcode = 258;
+	if (parser->token->e_type == TOKEN_RD_ERROR
+		&& g_data.here_doc_flag == 0)
+		return (1);
+	return (0);
 }
 
 t_token	*free_get_token(t_parser *parser)

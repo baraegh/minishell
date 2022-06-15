@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 22:00:18 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/15 02:42:44 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/15 19:48:06 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_cmd	*parser_parse_pipe(t_parser *parser, t_cmd **head)
 
 void	*parser_handle_error(t_parser *parser, t_cmd *head)
 {
+	g_data.exitcode = 258;
 	printf("minishell: %s\n", parser->token->value);
 	free_list(head);
 	return (0);

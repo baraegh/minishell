@@ -6,7 +6,7 @@
 #    By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by eel-ghan          #+#    #+#              #
-#    Updated: 2022/06/15 18:48:26 by eel-ghan         ###   ########.fr        #
+#    Updated: 2022/06/15 20:05:46 by eel-ghan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ OBJS = ${SRCS:.c=.o}
 
 CC = @gcc
 
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror
 
 RM = @rm -f
 
