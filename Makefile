@@ -3,10 +3,11 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+         #
+#    By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by eel-ghan          #+#    #+#              #
 #    Updated: 2022/06/17 18:14:28 by ael-bach         ###   ########.fr        #
+#    Updated: 2022/06/15 20:05:46 by eel-ghan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +49,7 @@ RM = @rm -f
 
 libft = srcs/Libft/libft.a
 
-INCLUDE = -L /Users/ael-bach/Desktop/homebrew/opt/readline/lib -I /Users/ael-bach/Desktop/homebrew/opt/readline/include
+INCLUDE = -L /Users/eel-ghan/homebrew/opt/readline/lib -I /Users/eel-ghan/homebrew/opt/readline/include
 
 ${NAME} : ${SRCS}
 	${CNTRL}
