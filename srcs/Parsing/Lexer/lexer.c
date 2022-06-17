@@ -26,6 +26,7 @@ t_lexer	*init_lexer(char *contents, t_vr *vr, int exit_code)
 	{
 		free(lexer);
 		free(lexer->contents);
+		g_data.exitcode = 258;
 		printf("minishell: syntax error, unclosed quotes\n");
 		return (NULL);
 	}

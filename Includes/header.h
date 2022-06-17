@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 23:32:40 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/15 18:33:07 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/17 18:17:29 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct s_data
 	int	quit_flag;
 	int	here_doc_flag;
 	int	rd_error;
+	int	cd;
+	int	h_sig;
 
 }	t_data;
 

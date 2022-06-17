@@ -6,11 +6,17 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:20:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/15 18:36:52 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/17 18:23:45 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/header.h"
+
+void	handle_sig(void)
+{
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+}
 
 void	ft_child(t_cmd *list, t_vr *vr, t_exec_p *exec)
 {
@@ -18,7 +24,7 @@ void	ft_child(t_cmd *list, t_vr *vr, t_exec_p *exec)
 	char	*cmderr;
 	int		i;
 
-	signal(SIGQUIT, SIG_DFL);
+	handle_sig();
 	if (!list->cmd[0])
 		return ;
 	cmderr = ft_strdup(list->cmd[0]);
@@ -56,6 +62,7 @@ void	*exec_pipe_ut(t_cmd *list, t_exec_p *exec, t_vr *vr, int pipe_num)
 	}
 	else if (list->cmd[0] && !g_data.exitheredoc && !g_data.rd_error)
 	{
+		signal(SIGINT, SIG_IGN);
 		exec->pid = fork();
 		if (exec->pid == 0)
 			ft_child(list, vr, exec);

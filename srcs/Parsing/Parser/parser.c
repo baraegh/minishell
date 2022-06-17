@@ -59,6 +59,9 @@ t_cmd	*parser_parse(t_parser *parser)
 	g_data.exitheredoc = 0;
 	g_data.heredoc = 0;
 	g_data.rd_error = 0;
+	g_data.flag = 0;
+	g_data.cd = 0;
+	g_data.h_sig = 0;
 	if (parser->token == NULL)
 		return (NULL);
 	cmd_list = init_struct_cmd();

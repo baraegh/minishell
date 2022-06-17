@@ -6,6 +6,7 @@
 #    By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by eel-ghan          #+#    #+#              #
+#    Updated: 2022/06/17 18:14:28 by ael-bach         ###   ########.fr        #
 #    Updated: 2022/06/15 20:05:46 by eel-ghan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -38,7 +39,7 @@ SRCS =	minishell.c ${LEX_DIR}lexer.c ${LEX_DIR}token.c ${LEX_DIR}lexer_utils00.c
 
 OBJS = ${SRCS:.c=.o}
 
-OBJS = ${SRCS:.c=.o}
+CNTRL = @stty -echoctl
 
 CC = @gcc
 
@@ -51,6 +52,7 @@ libft = srcs/Libft/libft.a
 INCLUDE = -L /Users/eel-ghan/homebrew/opt/readline/lib -I /Users/eel-ghan/homebrew/opt/readline/include
 
 ${NAME} : ${SRCS}
+	${CNTRL}
 	@make -C srcs/Libft
 	${CC}  ${CFLAGS} ${SRCS} ${libft} ${INCLUDE} -lreadline -o ${NAME} 
 	@tput setaf 2; echo "MINISHELL IS READY"
