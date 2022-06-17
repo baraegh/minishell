@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 18:48:38 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/14 23:41:57 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/15 02:40:15 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ typedef struct s_token
 		TOKEN_APPEND,
 		TOKEN_HERE_DOC,
 		TOKEN_PIPE,
-		TOKEN_ERROR
+		TOKEN_ERROR,
+		TOKEN_RD_ERROR
 	}		e_type;
 	char	*value;
 }	t_token;

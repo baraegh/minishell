@@ -6,15 +6,34 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 11:20:00 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/14 23:24:14 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/17 18:32:03 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../Includes/header.h"
 
-void	cd(t_cmd *list, t_vr *vr)
+void	change_pwdenv(char *oldpwd, t_vr *vr)
 {
 	char	*pwd;
+	char	cwd[1000];
+
+	if (oldpwd)
+	{
+		pwd = ft_strjoin1("OLDPWD=", oldpwd);
+		check_exp_env(pwd, vr);
+		free (pwd);
+	}
+	oldpwd = getcwd(cwd, sizeof(cwd));
+	if (oldpwd)
+	{
+		pwd = ft_strjoin1("PWD=", oldpwd);
+		check_exp_env(pwd, vr);
+		free (pwd);
+	}
+}
+
+void	cd(t_cmd *list, t_vr *vr)
+{
 	char	cwd[1000];
 	char	*oldpwd;
 
@@ -23,21 +42,16 @@ void	cd(t_cmd *list, t_vr *vr)
 	{
 		if (chdir(getenv("HOME")) < 0)
 		{
-			ft_error("cd : no such file or directory\n", 1);
+			ft_error("cd : no such file or directory\n", 2);
 			return ;
 		}
 	}
 	else if (chdir(list->cmd[1]) < 0)
 	{
-		ft_error("cd : no such file or directory\n", 1);
+		ft_error("cd : no such file or directory\n", 2);
 		return ;
 	}
-	pwd = ft_strjoin1("OLDPWD=", oldpwd);
-	check_exp_env(pwd, vr);
-	free (pwd);
-	pwd = ft_strjoin1("PWD=", getcwd(cwd, sizeof(cwd)));
-	free (pwd);
-	check_exp_env(pwd, vr);
+	change_pwdenv(oldpwd, vr);
 	g_data.exitcode = 0;
 }
 
@@ -46,7 +60,7 @@ void	pwd(int fd)
 	char	cwd[1000];
 
 	if (!getcwd(cwd, sizeof(cwd)))
-		ft_error("pwd error\n", 1);
+		ft_error("Error : 👺 omnytk, rah hna fin segfaultat\n", 2);
 	else
 	{
 		ft_putstr_fd(cwd, fd);

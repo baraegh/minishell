@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 18:17:23 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/14 23:42:42 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/17 18:42:56 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	handle_sigint(int sigint)
 	}
 	else
 	{
-		printf("\n");
+		if (!g_data.h_sig)
+			printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -46,10 +47,12 @@ t_lexer	*get_lexer(char *command, t_vr *vr)
 {
 	t_lexer		*lexer;
 
+	g_data.here_doc_flag = 0;
 	if (!command)
 	{
+		printf("exit\n");
 		free(command);
-		exit(130);
+		exit(0);
 	}
 	if (!*command || !check_space(command))
 	{
@@ -94,6 +97,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		list = parser_parse(parser);
 		exec_pipe(list, vr);
+		signal(SIGINT, &handle_sigint);
 		free_util(parser, lexer, list);
 	}
 	return (0);

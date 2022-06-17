@@ -6,7 +6,7 @@
 /*   By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 13:47:06 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/06/13 23:49:03 by eel-ghan         ###   ########.fr       */
+/*   Updated: 2022/06/15 20:17:23 by eel-ghan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_lexer	*init_lexer(char *contents, t_vr *vr, int exit_code)
 	{
 		free(lexer);
 		free(lexer->contents);
+		g_data.exitcode = 258;
 		printf("minishell: syntax error, unclosed quotes\n");
 		return (NULL);
 	}
