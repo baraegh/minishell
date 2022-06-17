@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 11:20:00 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/17 18:32:03 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/17 20:21:34 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	cd(t_cmd *list, t_vr *vr)
 	{
 		if (chdir(getenv("HOME")) < 0)
 		{
-			ft_error("cd : no such file or directory\n", 2);
+			ft_error("cd : no such file or directory\n", 1);
 			return ;
 		}
 	}
 	else if (chdir(list->cmd[1]) < 0)
 	{
-		ft_error("cd : no such file or directory\n", 2);
+		ft_error("cd : no such file or directory\n", 1);
 		return ;
 	}
 	change_pwdenv(oldpwd, vr);
@@ -60,7 +60,7 @@ void	pwd(int fd)
 	char	cwd[1000];
 
 	if (!getcwd(cwd, sizeof(cwd)))
-		ft_error("Error : 👺 omnytk, rah hna fin segfaultat\n", 2);
+		ft_error("Error : 👺 omnytk, rah hna fin segfaultat\n", 1);
 	else
 	{
 		ft_putstr_fd(cwd, fd);

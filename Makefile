@@ -3,13 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eel-ghan <eel-ghan@student.42.fr>          +#+  +:+       +#+         #
+#    By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 03:45:02 by eel-ghan          #+#    #+#              #
-#    Updated: 2022/06/17 18:14:28 by ael-bach         ###   ########.fr        #
-#    Updated: 2022/06/15 20:05:46 by eel-ghan         ###   ########.fr        #
+#    Updated: 2022/06/17 20:40:27 by ael-bach         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME = minishell
 
@@ -34,7 +34,6 @@ SRCS =	minishell.c ${LEX_DIR}lexer.c ${LEX_DIR}token.c ${LEX_DIR}lexer_utils00.c
 		./srcs/exec/srcs/echo_utls.c\
 		./srcs/exec/srcs/utils.c\
 		./srcs/exec/srcs/utils_2.c\
-		./srcs/exec/srcs/signals.c\
 		
 
 OBJS = ${SRCS:.c=.o}
@@ -49,7 +48,7 @@ RM = @rm -f
 
 libft = srcs/Libft/libft.a
 
-INCLUDE = -L /Users/eel-ghan/homebrew/opt/readline/lib -I /Users/eel-ghan/homebrew/opt/readline/include
+INCLUDE = -L /Users/ael-bach/Desktop/homebrew/opt/readline/lib -I /Users/ael-bach/Desktop/homebrew/opt/readline/include
 
 ${NAME} : ${SRCS}
 	${CNTRL}

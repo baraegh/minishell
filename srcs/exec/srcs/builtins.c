@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:12:56 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/14 23:14:39 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/17 20:39:57 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ void	ft_exit(t_cmd *list)
 	if (i == 1)
 	{
 		printf("exit\n");
-		g_data.exitcode = 0;
 		exit(g_data.exitcode);
 	}
 }

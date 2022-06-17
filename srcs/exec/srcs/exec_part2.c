@@ -6,7 +6,7 @@
 /*   By: ael-bach <ael-bach@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 19:02:49 by ael-bach          #+#    #+#             */
-/*   Updated: 2022/06/14 23:48:11 by ael-bach         ###   ########.fr       */
+/*   Updated: 2022/06/17 20:35:00 by ael-bach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	*out_file(t_file *file,	int *fd)
 		fd[1] = open(file->file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
 		if (fd[1] < 0)
 		{
-			ft_error("minishell: No such file or directory\n", 2);
+			ft_error("minishell: No such file or directory\n", 1);
 			return (NULL);
 		}
 	}
@@ -28,7 +28,7 @@ int	*out_file(t_file *file,	int *fd)
 		fd[1] = open(file->file_name, O_RDWR | O_CREAT | O_APPEND, 0644);
 		if (fd[1] < 0)
 		{
-			ft_error("minishell: No such file or directory\n", 2);
+			ft_error("minishell: No such file or directory\n", 1);
 			return (NULL);
 		}
 	}
@@ -43,7 +43,7 @@ int	*openfile_ut(t_file *file,	int *fd)
 		fd[0] = open(file->file_name, O_RDONLY, 0644);
 		if (fd[0] < 0)
 		{
-			ft_error("minishell: No such file or directory\n", 2);
+			ft_error("minishell: No such file or directory\n", 1);
 			return (NULL);
 		}
 	}
